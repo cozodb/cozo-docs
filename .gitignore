@@ -139,3 +139,4 @@ dmypy.json
 cython_debug/
 
 tutorial/test.ipynb
+tutorial/_test_db
