@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 
-VERSION=$(cat ../Cargo.toml | grep -E "^version" | grep -Eo '[0-9.]+')
-DEST_DIR=../../cozodb_site/$VERSION
+VERSION=$(cat ../cozo/Cargo.toml | grep -E "^version" | grep -Eo '[0-9.]+')
+DEST_DIR=../cozodb_site/$VERSION
 
 make html
 touch build/html/.nojekyll

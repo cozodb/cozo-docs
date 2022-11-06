@@ -114,9 +114,17 @@ Ordinary aggregations
 
 .. function:: latest_by([data, time])
 
-    The argument should be a list of two elements and this aggregation returns the ``data`` of the maximum ``cost``.
+    The argument should be a list of two elements and this aggregation returns the ``data`` of the maximum ``time``.
     This is very similar to ``min_cost``, the differences being that maximum instead of minimum is used,
-    only the data itself is returned, and the aggregation is deliberately not a semi-lattice aggregation. Intended to be used in timestamped audit trails.
+    only ``data`` is returned, and the aggregation is deliberately not a semi-lattice aggregation. 
+    
+    .. NOTE::
+        This aggregation is intended to be used in timestamped audit trails.
+        As an example:: 
+
+            ?[id, latest_by(status_ts)] := *data[id, status, ts], status_ts = [status, ts]
+
+        returns the latest ``status`` for each ``id``.
 
 .. function:: choice_rand(var)
 
