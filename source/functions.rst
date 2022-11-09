@@ -471,6 +471,18 @@ Type checking and conversions
     * ``PI`` is converted to pi (3.14159...);
     * ``E`` is converted to the base of natural logarithms, or Euler's constant (2.71828...).
 
+.. function:: to_bool(x)
+
+    Tries to convert ``x`` to a boolean. The following are converted to ``false``, and everything else is converted to ``true``:
+
+    * ``null``
+    * ``false``
+    * ``0``, ``0.0``
+    * ``""`` (empty string)
+    * the empty byte array
+    * the nil UUID (all zeros)
+    * ``[]`` (the empty list)
+
 .. function:: to_uuid(x)
 
     Tries to convert ``x`` to a UUID. The input must either be a hyphenated UUID string representation or already a UUID for it to succeed.
