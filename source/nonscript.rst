@@ -2,12 +2,12 @@
 Beyond CozoScript
 ======================================
 
-Most functionalities of the Cozo database is accessible via the CozoScript API.
+Most functionalities of the Cozo database are accessible via the CozoScript API.
 However, other functionalities either cannot conform to the "always return a relation" constraint,
 or are of such a nature as to make a separate API desirable. These are described here.
 
 The calling convention and even names of the APIs may differ on different target languages, please refer
-to the respective language-specific documentations. Here we use the Python API as an example
+to the respective language-specific documentation. Here we use the Python API as an example
 to describe what they do.
 
 .. module:: API
@@ -23,14 +23,14 @@ to describe what they do.
 
 .. function:: import_relations(self, data)
     
-    Import data into a database. The data are imported inside a transaction, so that either all imports are successful, or none is.
+    Import data into a database. The data are imported inside a transaction, so that either all imports are successful, or none are.
     If conflicts arise because of concurrent modification to the database, via either CosoScript queries or other imports,
     the transaction will fail.
 
     The relations to import into must exist beforehand, and the data given must match the schema defined.
 
-    This API can be used to batch put or remove data from several stored relations atomically.
-    The ``data`` parameter can contain relations names such as ``"rel_a"``, or relation names prefixed by a minus sign such as ``"-rel_a"``.
+    This API can be used to batch-put or remove data from several stored relations atomically.
+    The ``data`` parameter can contain relation names such as ``"rel_a"``, or relation names prefixed by a minus sign such as ``"-rel_a"``.
     For the former case, every row given for the relation will be ``put`` into the database, i.e. upsert semantics.
     For the latter case, the corresponding rows are removed from the database, and you should only specify the key part of the rows.
     As for ``rm`` in CozoScript, it is not an error to remove non-existent rows.
@@ -42,28 +42,29 @@ to describe what they do.
 .. function:: backup(self, path)
 
     Backup a database to the specified path. 
-    It is guaranteed that the exported data form a consistent snapshot of what was stored in the database.
+    The exported data is guaranteed to form a consistent snapshot of what was stored in the database.
 
-    This backs up everything: you cannot choose what to backup. It is also much more efficient than exporting all stored
+    This backs up everything: you cannot choose what to back up. It is also much more efficient than exporting all stored
     relations via ``export_relations``, and only a tiny fraction of the total data needs to reside in memory during
     backup.
 
     This function is only available if the ``storage-sqlite`` feature flag was on when compiling.
     The flag is on for all pre-built binaries except the WASM binaries.
-    In fact, the backup produced by this API can then be used as an independent SQLite-based Cozo database.
+    The backup produced by this API can then be used as an independent SQLite-based Cozo database.
     If you want to store the backup for future use, you should compress it to save a lot of disk space.
 
     :param path: the path to write the backup into. For a remote database, this is a path on the remote machine.
 
 .. function:: restore(self, path)
 
-    Restore database from a backup. Must be called on an empty database. 
+    Restore the database from a backup. Must be called on an empty database. 
     
     This restores everything: you cannot choose what to restore.
 
-    :param path: the path to the backup. For remote databases, you cannot restore them this way: use the executable directly.
+    :param path: the path to the backup. You cannot restore remote databases this way: use the executable directly.
 
 .. function:: import_from_backup(self, path, relations)
+    
     Import stored relations from a backup.
 
     In terms of semantics, this is like ``import_relations``, except that data comes from the backup file directly,

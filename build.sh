@@ -11,4 +11,4 @@ mkdir -p $DEST_DIR
 mv build/html $DEST_DIR/manual
 
 make latexpdf
-mv build/latex/thecozodatabasemanual.pdf $DEST_DIR/manual.pdf
+mv build/latex/thecozoscriptmanual.pdf $DEST_DIR/manual.pdf
