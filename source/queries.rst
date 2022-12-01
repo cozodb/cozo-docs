@@ -2,7 +2,7 @@
 Queries
 ==============
 
-CozoScript, a `Datalog <https://en.wikipedia.org/wiki/Datalog>`_ dialect, is the query language of Cozo.
+CozoScript, a `Datalog <https://en.wikipedia.org/wiki/Datalog>`_ dialect, is the query language of the Cozo database.
 
 A CozoScript query consists of one or many named rules.
 Each named rule represents a *relation*, i.e. collection of data divided into rows and columns.

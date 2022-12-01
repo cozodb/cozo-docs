@@ -561,6 +561,7 @@ Random functions
 .. function:: rand_uuid_v1()
 
     Generate a random UUID, version 1 (random bits plus timestamp).
+    The resolution of the timestamp part is much coarser on WASM targets than the others.
 
 .. function:: rand_uuid_v4()
 
@@ -659,6 +660,7 @@ Timestamp functions
 .. function:: now()
 
     Returns the current timestamp as seconds since the UNIX epoch.
+    The resolution is much coarser on WASM targets than the others.
 
 .. function:: format_timestamp(ts, tz?)
 

@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-VERSION=$(cat ../cozo/Cargo.toml | grep -E "^version" | grep -Eo '[0-9.]+')
+VERSION=$(cat ./VERSION)
 DEST_DIR=../cozodb_site/$VERSION
 
 make html
@@ -12,6 +12,3 @@ mv build/html $DEST_DIR/manual
 
 make latexpdf
 mv build/latex/thecozodatabasemanual.pdf $DEST_DIR/manual.pdf
-
-jupyter nbconvert --to html tutorial/tutorial.ipynb
-mv tutorial/tutorial.html $DEST_DIR/

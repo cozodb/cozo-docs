@@ -4,6 +4,12 @@ Utilities and algorithms
 
 Fixed rules in CozoScript apply utilities or algorithms.
 
+The algorithms described here are only available if your distribution of Cozo is compiled with the ``graph-algo`` feature flag.
+Currently all prebuilt binaries are compiled with this flag on.
+
+Some algorithms make use of multiple threads to greatly improve running time if the ``rayon`` feature flag is on.
+All prebuilt binaries except WASM have this flag on.
+
 .. module:: Algo
     :noindex:
 
@@ -39,6 +45,9 @@ Utilities
 
     Read a CSV file from disk or an HTTP GET request and convert the result to a relation.
 
+    This utility is not available on WASM targets. In addition, if the feature flag ``requests`` is off,
+    only reading from local file is supported.
+
     :param required url: URL for the CSV file. For local file, use ``file://<PATH_TO_FILE>``.
     :param required types: A list of strings interpreted as types for the columns of the output relation. If any type is specified as nullable and conversion to the specified type fails, ``null`` will be the result. This is more lenient than other functions since CSVs tend to contain lots of bad values.
     :param delimiter: The delimiter to use when parsing the CSV file.
@@ -48,6 +57,9 @@ Utilities
 .. function:: JsonReader(url: ..., fields: [...], json_lines: true, null_if_absent: false, prepend_index: false)
 
     Read a JSON file for disk or an HTTP GET request and convert the result to a relation.
+    
+    This utility is not available on WASM targets. In addition, if the feature flag ``requests`` is off,
+    only reading from local file is supported.
 
     :param required url: URL for the JSON file. For local file, use ``file://<PATH_TO_FILE>``.
     :param required fields: A list of field names, for extracting fields from JSON arrays into the relation.

@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'The Cozo Database Manual'
+project = 'The CozoScript Manual'
 copyright = '2022, Ziyang Hu'
 author = 'Ziyang Hu'
 release = '0.1.0'
@@ -28,5 +28,5 @@ latex_show_urls = 'footnote'
 
 html_theme = 'furo'
 html_static_path = ['_static']
-html_title = "Cozo Manual"
+html_title = "CozoScript"
 html_baseurl = '/manual/'
