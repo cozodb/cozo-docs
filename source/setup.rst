@@ -10,7 +10,7 @@ though the coverage of some topics may be sketchy at this stage. In addition, th
 beyond CozoScript.
 
 This manual assumes that you already know the basics of the Cozo database,
-at the level of the `Tutorial <https://nbviewer.org/github/cozodb/cozo-docs/blob/main/tutorial/tutorial.ipynb>`_.
+at the level of the `Tutorial <https://github.com/cozodb/cozo-docs/blob/main/tutorial/tutorial.ipynb>`_.
 
 For installation instructions, refer to the `project homepage <https://github.com/cozodb/cozo>`_.
 
