@@ -1,10 +1,86 @@
-=========
-Functions
-=========
+========================
+Functions and operators
+========================
 
 Functions can be used to build expressions.
 
-In the following, all functions except those having names starting with ``rand_`` are deterministic.
+All functions except those having names starting with ``rand_`` are deterministic.
+
+------------------------------------
+Non-functions
+------------------------------------
+
+Functions must take in expressions as arguments, evaluate each argument in turn, 
+and then evaluate its implementation to produce a value that can be used in an expression.
+We first describe constructs that look like, but are not functions.
+
+These are language constucts that return Horn clauses instead of expressions:
+
+* ``var = expr`` unifies ``expr`` with ``var``. Different from ``expr1 == expr2``.
+* ``not clause`` negates a Horn clause ``clause``. Different from ``!expr`` or ``negate(expr)``.
+* ``clause1 or clause2`` connects two Horn-clauses by disjunction. Different from ``or(expr1, expr2)``.
+* ``clause1 and clause2`` connects two Horn-clauses by conjunction. Different from ``and(expr1, expr2)``.
+* ``clause1, clause2`` connects two Horn-clauses by conjunction.
+
+For the last three, ``or`` binds more tightly from ``and``, which in turn binds more tightly than ``,``:
+``and`` and ``,`` are identical in every aspect except their binding powers.
+
+These are constructs that return expressions:
+
+* ``try(a, b, ...)`` evaluates each argument in turn, stops at the first expression that does not throw and return its value.
+* ``if(a, b, c)`` evaluates ``a``, and if the result is ``true``, evaluate ``b`` and returns its value, otherwise evaluate ``c`` and returns its value.
+  ``a`` must evaluate to a boolean.
+* ``if(a, b)`` same as ``if(a, b, null)``
+* ``cond(a1, b1, a2, b2, ...)`` evaluates ``a1``, if the results is ``true``, returns the value of ``b1``, otherwise continue with
+  ``a2`` and ``b2``. An even number of arguments must be given and the ``a``s must evaluate to booleans.
+  If all ``a``s are ``false``, ``null`` is returned. If you want a catch-all clause at the end,
+  put ``true`` as the condition.
+
+------------------------------------
+Operators representing functions
+------------------------------------
+
+Some functions have equivalent operator forms, which are easier to type and perhaps more familiar. First the binary operators:
+
+* ``a && b`` is the same as ``and(a, b)``
+* ``a || b`` is the same as ``or(a, b)``
+* ``a ^ b`` is the same as ``pow(a, b)``
+* ``a ++ b`` is the same as ``concat(a, b)``
+* ``a + b`` is the same as ``add(a, b)``
+* ``a - b`` is the same as ``sub(a, b)``
+* ``a * b`` is the same as ``mul(a, b)``
+* ``a / b`` is the same as ``div(a, b)``
+* ``a % b`` is the same as ``mod(a, b)``
+* ``a >= b`` is the same as ``ge(a, b)``
+* ``a <= b`` is the same as ``le(a, b)``
+* ``a > b`` is the same as ``gt(a, b)``
+* ``a < b`` is the same as ``le(a, b)``
+* ``a == b`` is the same as ``eq(a, b)``
+* ``a != b`` is the same as ``neq(a, b)``
+* ``a ~ b`` is the same as ``coalesce(a, b)``
+
+These operators have precedence as follows 
+(the earlier rows binds more tightly, and within the same row operators have equal binding power):
+
+* ``~``
+* ``^``
+* ``*``, ``/``
+* ``+``, ``-``, ``++``
+* ``==``, ``!=``
+* ``%``
+* ``>=``, ``<=``, ``>``, ``<``
+* ``&&``
+* ``||``
+
+With the exception of ``^``, all binary operators are left associative: ``a / b / c`` is the same as
+``(a / b) / c``. ``^`` is right associative: ``a ^ b ^ c`` is the same as ``a ^ (b ^ c)``.
+
+And the unary operators are:
+
+* ``-a`` is the same as ``minus(a)``
+* ``!a`` is the same as ``negate(a)``
+
+Function applications using parentheses bind the tightest, followed by unary operators, then binary operators.
 
 ------------------------
 Equality and Comparisons
