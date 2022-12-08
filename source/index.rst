@@ -16,6 +16,7 @@ The CozoScript Manual
    sysops
    datatypes
    execution
+   tips
    functions
    aggregations
    algorithms

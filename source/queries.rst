@@ -211,6 +211,11 @@ the so-called *semi-lattice aggregations*::
 
 Here self-recursion of ``shortest_distance`` contains the ``min`` aggregation.
 
+For a rule-head to be considered semi-lattice-aggregate, the aggregations must come at the end of the rule head.
+In the above example, if you write the head as ``shortest_distance[min(distance), destination]``,
+the query engine will complain about unsafe recursion through aggregation, since written
+this way ``min`` is considered an ordinary aggregation.
+
 ----------------------------------
 Fixed rules
 ----------------------------------
