@@ -230,7 +230,7 @@ In the general case, we cannot assume a functional dependency ``b => a``, so in 
 
 To manage the index automatically::
 
-    ::relation set_triggers rel
+    ::set_triggers rel
 
     on put {
         ?[a, b] := _new[a, b]

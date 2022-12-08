@@ -457,6 +457,10 @@ Type checking and conversions
 .. module:: Func.Typing
     :noindex:
 
+.. function:: coalesce(x, ...)
+
+    Returns the first non-null value; `coalesce(x, y)` is equivalent to `x ~ y`.
+
 .. function:: to_string(x)
 
     Convert ``x`` to a string: the argument is unchanged if it is already a string, otherwise its JSON string representation will be returned.
@@ -470,6 +474,17 @@ Type checking and conversions
     * ``NAN`` is converted to NAN (but don't compare NAN by equality, use ``is_nan`` instead);
     * ``PI`` is converted to pi (3.14159...);
     * ``E`` is converted to the base of natural logarithms, or Euler's constant (2.71828...).
+
+    Converts `null` and `false` to `0.0`, `true` to `1.0`
+
+.. function:: to_unity(x)
+
+    Tries to convert ``x`` to ``0`` or ``1``: ``null``, ``false``, ``0``, ``0.0``, ``""``, ``[]``, and the empty bytes are converted to ``0``,
+    and everything else is converted to ``1``.
+
+    This is useful in conjunction with aggregation functions. 
+    For example, ``?[x, count(x)] := rel[x, y], y > 3`` with a filter in the body omit groups that are completely filtered out.
+    Instead, use ``?[x, sum(should_count)] := rel[x, y], should_count = to_unity(y > 3)``.
 
 .. function:: to_bool(x)
 

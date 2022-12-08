@@ -19,6 +19,11 @@ The power of semi-lattice aggregations derive from the additional properties the
     associativity
         it is immaterial where we put the parentheses in an aggregate application.
 
+In auto-recursive semi-lattice aggregations, there are soundness constraints on what can be done on the bindings coming from the auto-recursive parts 
+within the body of the rule. Usually you do not need to worry about this at all since the obvious ways of using this functionality are all sound,
+but as for non-termination due to fresh variables introduced by function applications,
+Cozo does not (and cannot) check for unsoundness in this case.
+
 ------------------------------------
 Semi-lattice aggregations
 ------------------------------------
@@ -52,13 +57,8 @@ Semi-lattice aggregations
 
 .. function:: choice(var)
 
-    Non-deterministically chooses one of the values of ``var`` as the aggregate.
-    It simply chooses the first value it meets (the order that it meets values is non-deterministic).
-
-.. function:: choice_last(var)
-
-    Non-deterministically chooses one of the values of ``var`` as the aggregate.
-    It simply chooses the last value it meets.
+    Returns a non-null value. If all values are null, returns `null`. Which one is returned is deterministic but implementation-dependent
+    and may change from version to version.
 
 .. function:: min_cost([data, cost])
 
@@ -67,10 +67,6 @@ Semi-lattice aggregations
 .. function:: shortest(var)
 
     ``var`` must be a list. Returns the shortest list among all values. Ties will be broken non-deterministically.
-
-.. function:: coalesce(var)
-
-    Returns the first non-null value it meets. The order is non-deterministic.
 
 .. function:: bit_and(var)
 

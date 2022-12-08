@@ -35,6 +35,9 @@ to describe what they do.
     For the latter case, the corresponding rows are removed from the database, and you should only specify the key part of the rows.
     As for ``rm`` in CozoScript, it is not an error to remove non-existent rows.
 
+    .. WARNING::
+        Triggers are not run for direct imports.
+
     :param data: should be given as a dict with string keys, in the same format as returned by `export_relations`.
                  For example: ``{"rel_a": {"headers": ["x", "y"], "rows": [[1, 2], [3, 4]]}, "rel_b": {"headers": ["z"], "rows": []}}``
 
@@ -69,6 +72,9 @@ to describe what they do.
 
     In terms of semantics, this is like ``import_relations``, except that data comes from the backup file directly,
     and you can only ``put``, not ``rm``. It is also more memory-efficient than ``import_relations``.
+
+    .. WARNING::
+        Triggers are not run for direct imports.
 
     :param path: path to the backup file. For remote databases, this is a path on the remote machine.
     :param relations: a list containing the names of the relations to import. The relations must exist

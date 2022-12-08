@@ -8,7 +8,8 @@ The algorithms described here are only available if your distribution of Cozo is
 Currently all prebuilt binaries are compiled with this flag on.
 
 Some algorithms make use of multiple threads to greatly improve running time if the ``rayon`` feature flag is on.
-All prebuilt binaries except WASM have this flag on.
+All prebuilt binaries except WASM have this flag on. As a result, and also because of other platform restrictions,
+algorithms on WASM in general run much slower than on other platforms.
 
 .. module:: Algo
     :noindex:
@@ -207,9 +208,11 @@ Centrality measures
 
     :return: 4-tuples containing the node index, the total degree (how many edges involve this node), the out-degree (how many edges point away from this node), and the in-degree (how many edges point to this node).
 
-.. function:: PageRank(edges[from, to, weight?], undirected: false, theta: 0.8, epsilon: 0.05, iterations: 20)
+.. function:: PageRank(edges[from, to, weight?], undirected: false, theta: 0.85, epsilon: 0.0001, iterations: 10)
 
     Computes the `PageRank <https://en.wikipedia.org/wiki/PageRank>`_ from the given graph with the provided edges, optionally weighted.
+
+    This algorithm is implemented differently if the `rayon` is not enabled, in which case it runs much slower. This affects only the WASM platform.
 
     :param undirected: Whether the graph should be interpreted as undirected. Defaults to ``false``.
     :param theta: A number between 0 and 1 indicating how much weight in the PageRank matrix is due to the explicit edges. A number of 1 indicates no random restarts. Defaults to 0.8.
