@@ -111,6 +111,14 @@ Connectedness algorithms
 Pathfinding algorithms
 ------------------------------------
 
+.. function:: ShortestPathBFS(edges[from, to], starting[start_idx], goals[goal_idx])
+    Runs breadth-first search to determine the shortest path between the ``starting`` nodes and the ``goals``.
+    Assumes the graph to be directed and all edges to be of unit weight.
+    Ties will be broken in an unspecified way.
+    If you need anything more complicated, use one of the other algorithms below.
+
+    :return: Triples containing the starting node, the goal, and a shortest path.
+
 .. function:: ShortestPathDijkstra(edges[from, to, weight?], starting[idx], goals[idx], undirected: false, keep_ties: false)
 
     Runs `Dijkstra's algorithm <https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm>`_ to determine the shortest paths between the ``starting`` nodes and the ``goals``. Weights, if given, must be non-negative.
