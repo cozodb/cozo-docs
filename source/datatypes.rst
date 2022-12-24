@@ -15,6 +15,7 @@ Values in Cozo have the following *runtime types*:
 * ``Bytes``
 * ``Uuid``
 * ``List``
+* ``Validity``
 
 ``Number`` can be ``Float`` (double precision) or ``Int`` (signed, 64 bits). Cozo will auto-promote ``Int`` to ``Float`` when necessary.
 
@@ -32,6 +33,9 @@ Within each type values are *compared* according to:
 * UUIDs are sorted in a way that UUIDv1 with similar timestamps are near each other.
   This is to improve data locality and should be considered an implementation detail.
   Depending on the order of UUID in your application is not recommended.
+* Validity can be thought of as a list with two elements ``[ts, is_assert]``,
+  where ``ts`` is a 64-bit integer usually interpreted as microseconds since the UNIX epoch,
+  and ``is_assert`` is a boolean. During sorting, ``ts`` is sorted descendingly, i.e., later times first.
 
 .. WARNING::
 
@@ -89,6 +93,7 @@ The following *atomic types* can be specified for columns in stored relations:
 * ``String``
 * ``Bytes``
 * ``Uuid``
+* ``Validity``
 
 There is no ``Null`` type. Instead, if you put a question mark after a type, it is treated as *nullable*,
 meaning that it either takes value in the type or is null.

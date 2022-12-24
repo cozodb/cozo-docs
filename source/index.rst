@@ -13,6 +13,7 @@ The CozoScript Manual
    setup
    queries
    stored
+   timetravel
    sysops
    datatypes
    execution

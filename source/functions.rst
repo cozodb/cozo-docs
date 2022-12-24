@@ -573,6 +573,7 @@ Type checking and conversions
     * the empty byte array
     * the nil UUID (all zeros)
     * ``[]`` (the empty list)
+    * any validity that is a retraction
 
 .. function:: to_uuid(x)
 
@@ -756,6 +757,7 @@ Timestamp functions
 .. function:: format_timestamp(ts, tz?)
 
     Interpret ``ts`` as seconds since the epoch and format as a string according to `RFC3339 <https://www.rfc-editor.org/rfc/rfc3339>`_.
+    If ``ts`` is a validity, its timestamp will be converted to seconds and used.
 
     If a second string argument is provided, it is interpreted as a `timezone <https://en.wikipedia.org/wiki/Tz_database>`_ and used to format the timestamp.
 
