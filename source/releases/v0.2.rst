@@ -1,2 +1,67 @@
-Cozo runs everywhere
-==========================
+Cozo runs (almost) everywhere
+==============================
+
+Version 0.1 of Cozo can be used embedded from Python, NodeJS, Java, Rust
+and C, in addition to running standalone as a web server. Immediately
+after its release, many people asked about the feasibility of using Cozo
+embedded on mobile devices.
+
+There was one major obstacle to supporting mobile: Cozo 0.1 used RockDB
+as the storage engine, and compiling RocksDB for mobile devices is not
+an easy task. We chose RocksDB because it could handle a huge amount of
+concurrency and is very fast, but the concurrency part may not be
+relevant for the mobile case: you almost always have only one process
+concurrently accessing the database.
+
+So we ripped apart the storage engine code, made a nice and minimal
+interface out of it, and now Cozo supports swappable storage engines! At
+the time of this writing, you can choose from the following:
+
+-  In-memory engine
+-  SQLite engine
+-  RocksDB engine
+-  Sled engine
+-  TiKV engine
+
+They offer different trade-offs:
+
+-  The in-memory engine is perfect if you just want to use Cozo as a
+   computation engine. For us, it also made writing tests much easier.
+   The downside is that it doesn’t persist data, and it doesn’t support
+   much *write* concurrency.
+-  The SQLite engine uses a minimal amount of resources, is easy to
+   compile for almost all platforms including mobile, and is reasonably
+   fast for reads. SQLite markets itself as a *file storage format*, and
+   we took advantage of that by making SQLite the backup format for all
+   engines. In this way when you backup your database, you get a
+   single-file SQLite-backed Cozo database. You do not need to restore
+   the backup to look inside: the backup *is* a fully functional
+   database. As a backup format, it is also extremely space-efficient
+   after you gzip it. The downside is as expected: SQLite is not very
+   fast when it comes to writing and is effectively single-threaded when
+   write concurrency is involved. But as we have said, these are usually
+   not problems on mobile.
+-  The RocksDB engine is crazy fast for both reads and writes and can
+   handle an enormous amount of concurrency, while still being rather
+   conservative on resource usage. In particular, its storage on disk is
+   compressed, making its disk space requirements for live databases the
+   smallest among all persistent options.
+-  We included Sled as an engine just because we can. The only benefit
+   is that it is pure Rust, and we are not Rust fundamentalists. It is
+   not faster than SQLite for the usual workload that Cozo encounters
+   and uses way more disk space.
+-  The TiKV option is the slowest among all options (10x to 100x slower)
+   since data must come from the network. The benefit is that TiKV is a
+   distributed storage. We included it so that people may decide for
+   themselves if it offers value for them. By the way, 100x slower *than
+   the other storage options* may not be slow compared to the average
+   graph databases in the market – see the next section.
+
+As a result of the storage engine refactoring, Cozo now runs on a much
+wider range of platforms, including iOS, Android, and web browsers (with
+web assembly)! We have also expanded the officially supported languages
+where you can use Cozo embedded: Swift and Golang. Even if your
+platform/language combination is not supported, you can still use Cozo
+with the client/server mode. Or you can try to compile Cozo from source
+and interface it with your platform/language: let us know if you
+encounter problems, and we will help!

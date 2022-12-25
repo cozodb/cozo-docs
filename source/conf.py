@@ -16,6 +16,7 @@ release = '0.4.0'
 
 extensions = [
     'nbsphinx',
+    'myst_parser'
 ]
 
 templates_path = ['_templates']

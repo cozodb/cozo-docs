@@ -1,2 +1,0 @@
-Time travel in database: a Cozo story
-=========================================
