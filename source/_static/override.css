@@ -1,0 +1,11 @@
+table, td, th {
+    color: unset !important;
+}
+
+div.rendered_html tbody tr:nth-child(odd) {
+    background-color: rgba(127, 127, 127, 0.07) !important;
+}
+
+.jp-RenderedHTMLCommon thead, div.rendered_html thead {
+    border-bottom: 1px solid var(--color-foreground-primary) !important;
+}

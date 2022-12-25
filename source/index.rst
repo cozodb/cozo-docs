@@ -24,6 +24,7 @@ The CozoScript Manual
    aggregations
    algorithms
    nonscript
+   release
 
 
 .. only:: html
