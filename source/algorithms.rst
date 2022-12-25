@@ -112,6 +112,7 @@ Pathfinding algorithms
 ------------------------------------
 
 .. function:: ShortestPathBFS(edges[from, to], starting[start_idx], goals[goal_idx])
+
     Runs breadth-first search to determine the shortest path between the ``starting`` nodes and the ``goals``.
     Assumes the graph to be directed and all edges to be of unit weight.
     Ties will be broken in an unspecified way.

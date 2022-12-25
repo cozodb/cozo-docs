@@ -112,6 +112,7 @@ Ordinary aggregations
 
     The argument should be a list of two elements and this aggregation returns the ``data`` of the maximum ``time``.
     This is very similar to ``min_cost``, the differences being that maximum instead of minimum is used,
+    and non-numerical costs are allowed.
     only ``data`` is returned, and the aggregation is deliberately not a semi-lattice aggregation. 
     
     .. NOTE::
@@ -120,7 +121,13 @@ Ordinary aggregations
 
             ?[id, latest_by(status_ts)] := *data[id, status, ts], status_ts = [status, ts]
 
-        returns the latest ``status`` for each ``id``.
+        returns the latest ``status`` for each ``id``. If you do this regularly, consider using the time travelling
+        facility.
+
+.. function:: smallest_by([data, cost])
+
+    The argument should be a list of two elements and this aggregation returns the ``data`` of the minimum ``cost``.
+    Non-numerical costs are allowed, unlike ``min_cost``. The value ``null`` for ``data`` are ignored when comparing.
 
 .. function:: choice_rand(var)
 

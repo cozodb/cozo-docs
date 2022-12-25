@@ -53,6 +53,11 @@ To manipulate stored relations, use one of the following query options:
     and that no other process has written to these rows when the enclosing transaction commits.
     Useful for ensuring read-write consistency.
 
+.. function:: :yield <NAME>
+
+    When chaining queries, make the return set of the current query available in the subsequent
+    queries as the given name.
+
 You can rename and remove stored relations with the system ops ``::relation rename`` and ``::relation remove``,
 described in the system op chapter.
 
@@ -174,6 +179,27 @@ or data written within the same transaction, are visible to queries.
 At the end of the transaction, changes are only committed if there are no conflicts
 and no errors are raised.
 If any mutation activate triggers, those triggers execute in the same transaction.
+
+When chaining queries, you can yield the return set of a query to be used in subsequent queries,
+as the following example illustrates::
+
+    {
+        ?[a] <- [[1]]
+        :yield first_yield
+    }
+    {
+        ?[a] := first_yield[b], a = b + 1
+        :yield second_yield
+    }
+    {
+        ?[a] := first_yield[a]
+        ?[a] := second_yield[a]
+    }
+
+The final return set should be ``[[1], [2]]``.
+This example is contrived: the most frequent use of this feature is to compute
+some results and to insert various aspects of the results into different
+stored relations.
 
 ------------------------------------------------------
 Triggers and indices
