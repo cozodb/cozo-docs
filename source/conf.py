@@ -9,12 +9,18 @@
 project = 'The CozoScript Manual'
 copyright = '2022, Ziyang Hu'
 author = 'Ziyang Hu'
-release = '0.3.0'
+release = '0.4.0'
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
 
-extensions = []
+extensions = [
+    'sphinxcontrib.gtagjs',
+]
+
+gtagjs_ids = [
+    'G-5QG29TGPBJ',
+]
 
 templates_path = ['_templates']
 exclude_patterns = []
