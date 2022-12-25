@@ -11,6 +11,8 @@ The CozoScript Manual
    :caption: Contents
 
    setup
+   tutorial.ipynb
+   data_import.ipynb
    queries
    stored
    timetravel
