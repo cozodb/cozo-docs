@@ -109,7 +109,7 @@ datasets), but we expect most users *not* to be experts in such
 optimizations.
 
 You can download the complete result of the benchmarks as a spreadsheet
-:download:`here <cozo_perf.xlsx>`
+:download:`here <files/cozo_perf.xlsx>`
 to do your own analysis.
 
 Loading data
@@ -176,7 +176,7 @@ We can compare performance across the board by considering *raw rows per
 second* in imports, in which an edge counts as two raw rows since it
 must appear in two relations:
 
-.. figure:: batch_import_rps.svg
+.. figure:: files/batch_import_rps.svg
    :alt: Batch import
 
    Batch import
@@ -196,7 +196,7 @@ the RocksDB performance can be increased even more drastically.
 How much memory does the database use during the import process? We will
 show the peak memory usage as reported by the system:
 
-.. figure:: batch_import_mem.svg
+.. figure:: files/batch_import_mem.svg
    :alt: Batch import mem
 
    Batch import mem
@@ -209,7 +209,7 @@ dataset into the SQLite backend.
 
 The data for the mem backend is shown below separately:
 
-.. figure:: batch_import_mem_mem.svg
+.. figure:: files/batch_import_mem_mem.svg
    :alt: Batch import mem for mem
 
    Batch import mem for mem
@@ -220,7 +220,7 @@ efficiently. For almost everything we do in this benchmark, the memory
 usage of the mem backend is very similar to this, so we will not show
 the memory usage of the mem backend before. If you are interested
 nonetheless, you can look at the raw data in the
-:download:`spreadsheet <cozo_perf.xlsx>`.
+:download:`spreadsheet <files/cozo_perf.xlsx>`.
 
 Backup
 ~~~~~~
@@ -228,7 +228,7 @@ Backup
 In Cozo we can backup the database to an SQLite-based database. How fast
 is the backup?
 
-.. figure:: backup_rps.svg
+.. figure:: files/backup_rps.svg
    :alt: Backup
 
    Backup
@@ -244,7 +244,7 @@ importing into an SQLite-backed database directly.
 
 Memory usage:
 
-.. figure:: backup_mem.svg
+.. figure:: files/backup_mem.svg
    :alt: Backup memory
 
    Backup memory
@@ -257,7 +257,7 @@ Restoring from backup
 
 How fast is restoring from a backup?
 
-.. figure:: restore_rps.svg
+.. figure:: files/restore_rps.svg
    :alt: Restore
 
    Restore
@@ -269,7 +269,7 @@ directly if you don’t intend to write any data)!
 
 Memory usage:
 
-.. figure:: restore_mem.svg
+.. figure:: files/restore_mem.svg
    :alt: Restore memory
 
    Restore memory
@@ -296,7 +296,7 @@ reads the corresponding row and gives it to you:
 The performance metric we are interested in is the queries per second
 (QPS):
 
-.. figure:: single_vertex_read_qps.svg
+.. figure:: files/single_vertex_read_qps.svg
    :alt: Single vertex read QPS
 
    Single vertex read QPS
@@ -310,7 +310,7 @@ resources.
 
 For memory usage:
 
-.. figure:: single_vertex_read_mem.svg
+.. figure:: files/single_vertex_read_mem.svg
    :alt: Single vertex read mem
 
    Single vertex read mem
@@ -331,7 +331,7 @@ For this query, we are only going to show multi-thread performances for
 RocksDB, since writing to the other backends are protected by a big
 lock, so they are effectively still single-threaded:
 
-.. figure:: single_vertex_write_qps.svg
+.. figure:: files/single_vertex_write_qps.svg
    :alt: Single vertex write QPS
 
    Single vertex write QPS
@@ -341,7 +341,7 @@ setups. Using more than the number of performance cores on the Mac Mini
 decreases performance quite a bit, so avoid that if you can. But you
 can’t see the SQLite bars, can you? Let’s use logarithmic scale instead:
 
-.. figure:: single_vertex_write_qps_zoom.svg
+.. figure:: files/single_vertex_write_qps_zoom.svg
    :alt: Single vertex write QPS zoom
 
    Single vertex write QPS zoom
@@ -357,7 +357,7 @@ away from the SQLite backend if you expect lots of independent writes.
 
 Memory usage?
 
-.. figure:: single_vertex_write_mem.svg
+.. figure:: files/single_vertex_write_mem.svg
    :alt: Single vertex write mem
 
    Single vertex write mem
@@ -380,7 +380,7 @@ This query updates a field for a given row:
 
 The performance:
 
-.. figure:: single_vertex_update_qps.svg
+.. figure:: files/single_vertex_update_qps.svg
    :alt: Single vertex update QPS
 
    Single vertex update QPS
@@ -389,7 +389,7 @@ It is slower than point writes, but within a factor of two. You can
 still easily manage more than 50K QPS for RocksDB. Memory usage is
 almost the same as the point write case:
 
-.. figure:: single_vertex_update_mem.svg
+.. figure:: files/single_vertex_update_mem.svg
    :alt: Single vertex update mem
 
    Single vertex update mem
@@ -402,7 +402,7 @@ update to occur concurrently. We won’t show the details here, but the
 conclusion is that in such cases, the RocksDB backend doesn’t care if
 the queries are reads, writes or updates, whereas any amount of writes
 kills SQLite. If you want the details, you can find them in the
-:download:`spreadsheet <cozo_perf.xlsx>`.
+:download:`spreadsheet <files/cozo_perf.xlsx>`.
 
 If SQLite performs so badly at writes, why include it at all? Well, its
 performance is still acceptable if you are using it to build a desktop
@@ -440,7 +440,7 @@ We start by following the “friends” relation twice—a “2 hops” query:
 
 On average, this will return hundreds of rows.
 
-.. figure:: friends_2.svg
+.. figure:: files/friends_2.svg
    :alt: Friends 2 latency
 
    Friends 2 latency
@@ -469,7 +469,7 @@ thousands of rows will be returned, and if you start with some
 particular nodes, you get tens of thousands of rows. The latency is as
 follows:
 
-.. figure:: friends_3.svg
+.. figure:: files/friends_3.svg
    :alt: Friends 3 latency
 
    Friends 3 latency
@@ -480,7 +480,7 @@ returned rows.
 
 For memory usage:
 
-.. figure:: friends_3_mem.svg
+.. figure:: files/friends_3_mem.svg
    :alt: Friends 3 mem
 
    Friends 3 mem
@@ -502,7 +502,7 @@ The number of return rows now varies wildly: from tens of thousands of
 rows if you start with someone who is solitary, or more than half of the
 whole dataset (more than 600K rows) if you start with someone popular!
 
-.. figure:: friends_4.svg
+.. figure:: files/friends_4.svg
    :alt: Friends 4 latency
 
    Friends 4 latency
@@ -512,7 +512,7 @@ seconds (or even less than a second) is excellent.
 
 Peak memory usage just reflects the size of the returned sets:
 
-.. figure:: friends_4_mem.svg
+.. figure:: files/friends_4_mem.svg
    :alt: Friends 4 mem
 
    Friends 4 mem
@@ -539,7 +539,7 @@ age group:
 
    ?[age, count(uid)] := *user{uid, age}
 
-.. figure:: aggr_grp.svg
+.. figure:: files/aggr_grp.svg
    :alt: Aggregation group latency
 
    Aggregation group latency
@@ -550,7 +550,7 @@ cases.
 
 The memory usage is minimal as the return set is small:
 
-.. figure:: aggr_grp_mem.svg
+.. figure:: files/aggr_grp_mem.svg
    :alt: Aggregation group mem
 
    Aggregation group mem
@@ -567,7 +567,7 @@ latency|
 
 The memory usage is almost identical:
 
-.. figure:: aggr_filter_mem.svg
+.. figure:: files/aggr_filter_mem.svg
    :alt: Aggregation filter mem
 
    Aggregation filter mem
@@ -595,14 +595,14 @@ Pagerank algorithm with query
 This time we will show results for different dataset sizes. First for
 the tiny dataset (10K vertices, 122K edges):
 
-.. figure:: pagerank_tiny.svg
+.. figure:: files/pagerank_tiny.svg
    :alt: Pagerank tiny latency
 
    Pagerank tiny latency
 
 Completes in the blink of an eye. Memory usage:
 
-.. figure:: pagerank_tiny_mem.svg
+.. figure:: files/pagerank_tiny_mem.svg
    :alt: Pagerank tiny mem
 
    Pagerank tiny mem
@@ -611,14 +611,14 @@ Not much, since the dataset is truly tiny.
 
 Now for the small dataset (100K vertices, 1.7M edges):
 
-.. figure:: pagerank_small.svg
+.. figure:: files/pagerank_small.svg
    :alt: Pagerank small latency
 
    Pagerank small latency
 
 About one second within a factor of two. Memory usage:
 
-.. figure:: pagerank_small_mem.svg
+.. figure:: files/pagerank_small_mem.svg
    :alt: Pagerank small mem
 
    Pagerank small mem
@@ -628,7 +628,7 @@ which is less than the size of the total graph on disk.
 
 Now for the full dataset (1.6M vertices, 32M edges):
 
-.. figure:: pagerank_medium.svg
+.. figure:: files/pagerank_medium.svg
    :alt: Pagerank medium latency
 
    Pagerank medium latency
@@ -640,7 +640,7 @@ implementation of this crate. In the future we will continue to improve
 canned algorithms according to the metrics that we collected from our
 internal tests.) Memory usage:
 
-.. figure:: pagerank_medium_mem.svg
+.. figure:: files/pagerank_medium_mem.svg
    :alt: Pagerank medium mem
 
    Pagerank medium mem
@@ -657,7 +657,7 @@ that we can improve Cozo further! In a future blog, we will talk about
 some of the design decisions of Cozo, and the impact on performance and
 memory usage of these decisions.
 
-.. |Friends 2 mem| image:: friends_2_mem.svg
-.. |Aggregation filter latency| image:: aggr_filter.svg
-.. |Aggregation stats latency| image:: aggr_stats.svg
-.. |Aggregation stats mem| image:: aggr_stats_mem.svg
+.. |Friends 2 mem| image:: files/friends_2_mem.svg
+.. |Aggregation filter latency| image:: files/aggr_filter.svg
+.. |Aggregation stats latency| image:: files/aggr_stats.svg
+.. |Aggregation stats mem| image:: files/aggr_stats_mem.svg
