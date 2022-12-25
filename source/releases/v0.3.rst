@@ -109,7 +109,7 @@ datasets), but we expect most users *not* to be experts in such
 optimizations.
 
 You can download the complete result of the benchmarks as a spreadsheet
-`here <https://github.com/cozodb/cozo-docs/raw/main/resources/cozo_perf.xlsx>`__
+:download:`here <cozo_perf.xlsx>`
 to do your own analysis.
 
 Loading data
@@ -220,7 +220,7 @@ efficiently. For almost everything we do in this benchmark, the memory
 usage of the mem backend is very similar to this, so we will not show
 the memory usage of the mem backend before. If you are interested
 nonetheless, you can look at the raw data in the
-`spreadsheet <https://github.com/cozodb/cozo-docs/raw/main/resources/cozo_perf.xlsx>`__.
+:download:`spreadsheet <cozo_perf.xlsx>`.
 
 Backup
 ~~~~~~
@@ -402,7 +402,7 @@ update to occur concurrently. We won’t show the details here, but the
 conclusion is that in such cases, the RocksDB backend doesn’t care if
 the queries are reads, writes or updates, whereas any amount of writes
 kills SQLite. If you want the details, you can find them in the
-`spreadsheet <https://github.com/cozodb/cozo-docs/raw/main/resources/cozo_perf.xlsx>`__.
+:download:`spreadsheet <cozo_perf.xlsx>`.
 
 If SQLite performs so badly at writes, why include it at all? Well, its
 performance is still acceptable if you are using it to build a desktop
