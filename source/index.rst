@@ -3,14 +3,21 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-The CozoScript Manual
+Cozo database documentation
 =====================================
+
+Welcome to the Cozo database documentation. 
+This manual touches upon all features currently accessible in the Cozo database via CozoScript,
+though the coverage of some topics may be sketchy at this stage.
+
+If you are new to Cozo, you should start by following the :file:`tutorial`.
+
+For installation instructions, refer to the `project homepage <https://github.com/cozodb/cozo>`_.
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents
 
-   setup
    tutorial.ipynb
    data_import.ipynb
    queries
