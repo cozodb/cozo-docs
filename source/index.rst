@@ -19,7 +19,6 @@ For installation instructions, refer to the `project homepage <https://github.co
    :caption: Contents
 
    tutorial.ipynb
-   data_import.ipynb
    queries
    stored
    timetravel
