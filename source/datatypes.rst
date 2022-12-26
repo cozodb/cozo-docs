@@ -33,9 +33,8 @@ Within each type values are *compared* according to:
 * UUIDs are sorted in a way that UUIDv1 with similar timestamps are near each other.
   This is to improve data locality and should be considered an implementation detail.
   Depending on the order of UUID in your application is not recommended.
-* Validity can be thought of as a list with two elements ``[ts, is_assert]``,
-  where ``ts`` is a 64-bit integer usually interpreted as microseconds since the UNIX epoch,
-  and ``is_assert`` is a boolean. During sorting, ``ts`` is sorted descendingly, i.e., later times first.
+* Validity is introduced for the sole purpose of enabling time travel queries
+  and is discussed in its own chapter.
 
 .. WARNING::
 

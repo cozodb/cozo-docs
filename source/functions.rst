@@ -553,6 +553,10 @@ Type checking and conversions
 
     Converts `null` and `false` to `0.0`, `true` to `1.0`
 
+.. function:: to_int(x)
+
+    Converts to an integer. If ``x`` is a validity, extracts the timestamp as an integer.
+
 .. function:: to_unity(x)
 
     Tries to convert ``x`` to ``0`` or ``1``: ``null``, ``false``, ``0``, ``0.0``, ``""``, ``[]``, and the empty bytes are converted to ``0``,
