@@ -10,9 +10,10 @@ Welcome to the Cozo database documentation.
 This manual touches upon all features currently accessible in the Cozo database via CozoScript,
 though the coverage of some topics may be sketchy at this stage.
 
-If you are new to Cozo, you should start by following the :file:`tutorial`.
+If you are new to Cozo, you should start by following the :doc:`tutorial`.
 
-For installation instructions, refer to the `project homepage <https://github.com/cozodb/cozo>`_.
+For installation instructions and language-specific APIs, 
+please refer to the `project homepage <https://github.com/cozodb/cozo>`_.
 
 .. toctree::
    :maxdepth: 2

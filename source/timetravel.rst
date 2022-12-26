@@ -66,3 +66,8 @@ UNIX epoch. For this interpretation, the following convenience are provided:
 
 * You can use the function ``format_timestamp`` to directly format a the timestamp part of a validity to
   RFC 3339 strings.
+
+An interesting use case of the time travel facility is to pre-generate the whole history for all time,
+and in the user-facing interface query with the current time ``NOW``.
+The effect is that users see an illusion of real-time interactions:
+a manifestation of `Laplace's daemon <https://en.wikipedia.org/wiki/Laplace%27s_demon>`_.
