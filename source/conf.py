@@ -6,10 +6,10 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-project = 'The Cozo Database Manual'
-copyright = '2022, Ziyang Hu'
-author = 'Ziyang Hu'
 release = '0.4.0'
+project = 'The Cozo Database Manual ' + release
+author = 'Ziyang Hu'
+copyright = '2022, ' + author
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration
@@ -32,5 +32,5 @@ latex_show_urls = 'footnote'
 html_theme = 'furo'
 html_static_path = ['_static']
 html_css_files = ['override.css']
-html_title = "CozoDB 0.4"
+html_title = "CozoDB " + release
 # html_baseurl = '/'
