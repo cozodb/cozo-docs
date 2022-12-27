@@ -32,5 +32,5 @@ latex_show_urls = 'footnote'
 html_theme = 'furo'
 html_static_path = ['_static']
 html_css_files = ['override.css']
-html_title = "CozoDB"
-html_baseurl = '/manual/'
+html_title = "CozoDB 0.4"
+# html_baseurl = '/'
