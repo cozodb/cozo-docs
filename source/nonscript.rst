@@ -38,7 +38,7 @@ to describe what they do.
     .. WARNING::
         Triggers are not run for direct imports.
 
-    :param data: should be given as a dict with string keys, in the same format as returned by `export_relations`.
+    :param data: should be given as a dict with string keys, in the same format as returned by ``export_relations``.
                  For example: ``{"rel_a": {"headers": ["x", "y"], "rows": [[1, 2], [3, 4]]}, "rel_b": {"headers": ["z"], "rows": []}}``
 
 

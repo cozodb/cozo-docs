@@ -7,14 +7,14 @@ Cozo database documentation
 =====================================
 
 Welcome to the documentation for CozoDB,
-a feature-rich transactional, relational database that uses Datalog for queries,
+a feature-rich, transactional, relational database that uses Datalog for queries,
 focuses on graph data and algorithms, is capable of time travel, 
 and makes no performance compromises.
 
 You can start immediately with the :doc:`tutorial`, which you can follow without installing anything.
 
 For installation instructions and language-specific APIs, 
-please refer to the `project homepage <https://github.com/cozodb/cozo>`_.
+please refer to the `GitHub page <https://github.com/cozodb/cozo>`_.
 
 .. toctree::
    :maxdepth: 2

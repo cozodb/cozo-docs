@@ -33,8 +33,7 @@ Within each type values are *compared* according to:
 * UUIDs are sorted in a way that UUIDv1 with similar timestamps are near each other.
   This is to improve data locality and should be considered an implementation detail.
   Depending on the order of UUID in your application is not recommended.
-* Validity is introduced for the sole purpose of enabling time travel queries
-  and is discussed in its own chapter.
+* Validity is introduced for the sole purpose of enabling :doc:`time travel <timetravel>` queries.
 
 .. WARNING::
 

@@ -57,7 +57,7 @@ Semi-lattice aggregations
 
 .. function:: choice(var)
 
-    Returns a non-null value. If all values are null, returns `null`. Which one is returned is deterministic but implementation-dependent
+    Returns a non-null value. If all values are null, returns ``null``. Which one is returned is deterministic but implementation-dependent
     and may change from version to version.
 
 .. function:: min_cost([data, cost])

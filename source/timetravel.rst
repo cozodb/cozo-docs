@@ -7,6 +7,7 @@ and allowing queries to be logically executed at a point in time
 to get a historical view of the data. 
 In a sense, this makes your database immutable, 
 since nothing is really deleted from the database ever.
+:doc:`This story <releases/v0.4>` gives some motivations why time travel may be valuable.
 
 In Cozo, a stored relation is eligible for time travel if the last part of its key
 has the explicit type `Validity`.
