@@ -6,11 +6,12 @@
 Cozo database documentation
 =====================================
 
-Welcome to the Cozo database documentation. 
-This manual touches upon all features currently accessible in the Cozo database via CozoScript,
-though the coverage of some topics may be sketchy at this stage.
+Welcome to the documentation for CozoDB,
+a feature-rich transactional, relational database that uses Datalog for queries,
+focuses on graph data and algorithms, is capable of time travel, 
+and makes no performance compromises.
 
-If you are new to Cozo, you should start by following the :doc:`tutorial`.
+You can start immediately with the :doc:`tutorial`, which you can follow without installing anything.
 
 For installation instructions and language-specific APIs, 
 please refer to the `project homepage <https://github.com/cozodb/cozo>`_.
