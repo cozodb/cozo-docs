@@ -34,6 +34,11 @@ please refer to the `GitHub page <https://github.com/cozodb/cozo>`_.
    nonscript
    release
 
+.. sidebar-links::
+   :github:
+
+	Project Home <https://www.cozodb.org/>
+
 
 .. only:: html
 
