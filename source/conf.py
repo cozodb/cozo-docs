@@ -16,8 +16,13 @@ copyright = '2022, ' + author
 
 extensions = [
     'nbsphinx',
-    'myst_parser'
+    'myst_parser',
+    'sphinx_toolbox.sidebar_links',
+    'sphinx_toolbox.github',
 ]
+
+github_username = 'cozodb'
+github_repository = 'cozo'
 
 templates_path = ['_templates']
 exclude_patterns = []
