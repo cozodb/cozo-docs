@@ -70,12 +70,14 @@ Atoms representing applications of *stored relations* are written as::
 
 with the asterisk before the name.
 Written in this way using square brackets, as many bindings as the arity of the stored relation must be given.
+If some of the columns do not need to be bound, you can use the special underscore variable ``_``:
+it does not take part in any unifications.
 
 You can also bind columns by name::
 
     *stored_relation{col1: bind1, col2: bind2}
 
-In this form, any number of columns may be omitted.
+In this form, any number of columns may be omitted, and columns may come in any order.
 If the name you want to give the binding is the same as the name of the column, you can write instead
 ``*stored_relation{col1}``, which is the same as ``*stored_relation{col1: col1}``.
 
@@ -149,7 +151,7 @@ Explict unification cannot be negated unless the left-hand side is bound,
 in which case it is treated as an expression atom and then negated.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Recursion and stratification
+Recursion
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The body of an inline rule may contain rule applications of itself,
@@ -168,7 +170,7 @@ Recursion cannot occur in negated positions (*safety rule*): ``r[a] := not r[a]`
         ?[a] := r[a]
 
     It is not even in principle possible for Cozo to rule out all infinite queries without wrongly rejecting valid ones.
-    If you accidentally submitted one, refer to the system ops chapter for how to terminate queries.
+    If you accidentally submitted one, refer to the :doc:`sysops` chapter for how to terminate queries.
     Alternatively, you can give a timeout for the query when you submit.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -183,7 +185,7 @@ in the rule head::
 here we have used the familiar ``count`` operator.
 Any variables in the head without aggregation operators are treated as *grouping variables*,
 and aggregation is applied using them as keys.
-If you do not specify any grouping variables, then the resulting relation contains at most one row.
+If you do not specify any grouping variables, then the resulting relation contains exactly one row.
 
 Aggregation operators are applied to the rows computed by the body of the rule using bag semantics.
 The reason for this complication is that if aggregations are applied with set semantics, then the following query::
@@ -191,12 +193,12 @@ The reason for this complication is that if aggregations are applied with set se
     ?[count(employee)] := *personnel{employee}
 
 does not do what you expect: it either returns a row with a single value ``1`` if there are any matching rows,
-or it returns nothing at all if the stored relation is empty.
+or it returns ``0`` if the stored relation is empty.
 
 If a rule has several definitions, they must have identical aggregations applied in the same positions.
 
 Cozo allows aggregations for self-recursion for a limited subset of aggregation operators,
-the so-called *semi-lattice aggregations*::
+the so-called *semi-lattice aggregations* (see :doc:`this chapter <aggregations>`)::
 
     shortest_distance[destination, min(distance)] :=
         route{source: 'A', destination, distance}
@@ -231,7 +233,7 @@ In the above example, the relation ``*route`` is the single input relation expec
 Input relations may be stored relations or relations resulting from rules.
 
 Each utility/algorithm expects specific shapes for their input relations.
-You must consult the documentation for each utility/algorithm to understand its API.
+You must consult the :doc:`documentation <algorithms>` for each utility/algorithm to understand its API.
 
 In fixed rules, bindings for input relations are usually omitted, but sometimes if they are provided
 they are interpreted and used in algorithm-specific ways, for example in the DFS algorithm bindings.
@@ -261,7 +263,7 @@ All query options start with a single colon ``:``.
 Queries options can appear before or after rules, or even sandwiched between rules.
 
 Several query options deal with transactions for the database.
-Those will be discussed in the chapter on stored relations and transactions.
+Those will be discussed in a :doc:`separate chapter <stored>`.
 The rest of the query options are explained in the following.
 
 .. module:: QueryOp
@@ -270,7 +272,7 @@ The rest of the query options are explained in the following.
 .. function:: :limit <N>
 
     Limit output relation to at most ``<N>`` rows.
-    If possible, execution will stop as soon as this number of output rows is collected.
+    If possible, execution will stop as soon as this number of output rows is collected (i.e., early stopping).
 
 .. function:: :offset <N>
 
