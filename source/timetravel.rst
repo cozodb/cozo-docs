@@ -10,7 +10,7 @@ since nothing is really deleted from the database ever.
 :doc:`This story <releases/v0.4>` gives some motivations why time travel may be valuable.
 
 In Cozo, a stored relation is eligible for time travel if the last part of its key
-has the explicit type `Validity`.
+has the explicit type ``Validity``.
 A validity has two parts: a time part, represented by a signed integer,
 and an assertion part, represented by a boolean, so ``[42, true]`` represents
 a validity. Sorting of validity is by the timestamp first, then by the assertive flag,
