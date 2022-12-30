@@ -17,8 +17,7 @@ Explain
     A single query is enclosed in curly braces. Query options are allowed but ignored.
     The query is not executed, but its query plan is returned instead.
     Currently, there is no specification for the return format,
-    but if you are familiar with the semi-naïve evaluation of stratified Datalog programs
-    subject to magic-set rewrites, you can decipher the result.
+    but you can decipher the result after reading :doc:`execution`.
 
 ----------------------------------
 Ops for stored relations
@@ -46,7 +45,7 @@ Ops for stored relations
 
 .. function:: ::set_triggers <REL_NAME> ...
 
-    Set triggers for the stored relation ``<REL_NAME>``. This is explained in more detail in the transaction chapter.
+    Set triggers for the stored relation ``<REL_NAME>``. This is explained in more detail in :doc:`stored`.
 
 .. function:: ::access_level <ACCESS_LEVEL> <REL_NAME> (, <REL_NAME>)*
 

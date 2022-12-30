@@ -57,8 +57,7 @@ Another way is::
 These two queries yield identical values. But on real networks, where loops abound, 
 the second way of writing executes exponentially faster than the first.
 Why? Because of set semantics in relations, the second way of writing deduplicates at every turn,
-whereas the first way of writing builds up all paths to the final layer of friends. Depending on
-the size of your graph, your computer may not even have enough memory to hold all these paths!
+whereas the first way of writing builds up all paths to the final layer of friends.
 
 The moral of the story is, always prefer to break your query into smaller rules.
 It usually reads better, and unlike in some other databases, 
