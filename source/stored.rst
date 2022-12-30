@@ -10,7 +10,7 @@ Stored relations
 
 To query stored relations,
 use the ``*relation[...]`` or ``*relation{...}`` atoms in inline or fixed rules,
-as explained in the last chapter.
+as explained in the :doc:`last chapter <queries>`.
 To manipulate stored relations, use one of the following query options:
 
 .. module:: QueryOp
@@ -36,16 +36,16 @@ To manipulate stored relations, use one of the following query options:
     Put rows from the resulting relation into the named stored relation.
     If keys from the data exist beforehand, the corresponding rows are replaced with new ones.
 
+.. function:: :rm <NAME> <SPEC>
+
+    Remove rows from the named stored relation. Only keys should be specified in ``<SPEC>``.
+    Removing a non-existent key is not an error and does nothing.
+
 .. function:: :ensure <NAME> <SPEC>
 
     Ensure that rows specified by the output relation and spec exist in the database,
     and that no other process has written to these rows when the enclosing transaction commits.
     Useful for ensuring read-write consistency.
-
-.. function:: :rm <NAME> <SPEC>
-
-    Remove rows from the named stored relation. Only keys should be specified in ``<SPEC>``.
-    Removing a non-existent key is not an error and does nothing.
 
 .. function:: :ensure_not <NAME> <SPEC>
 
@@ -58,14 +58,14 @@ To manipulate stored relations, use one of the following query options:
     When chaining queries, make the return set of the current query available in the subsequent
     queries as the given name.
 
-You can rename and remove stored relations with the system ops ``::relation rename`` and ``::relation remove``,
+You can rename and remove stored relations with the system ops ``::rename`` and ``::remove``,
 described in the system op chapter.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Create and replace
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-The format of ``<SPEC>`` is identical for all four ops, but the semantics is a bit different.
+The format of ``<SPEC>`` is identical for all ops, but the semantics is a bit different.
 We first describe the format and semantics for ``:create`` and ``:replace``.
 
 A spec, or a specification for columns, is enclosed in curly braces ``{}`` and separated by commas::
