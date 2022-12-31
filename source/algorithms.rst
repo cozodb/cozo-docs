@@ -5,11 +5,7 @@ Utilities and algorithms
 Fixed rules in CozoScript apply utilities or algorithms.
 
 The algorithms described here are only available if your distribution of Cozo is compiled with the ``graph-algo`` feature flag.
-Currently all prebuilt binaries are compiled with this flag on.
-
-Some algorithms make use of multiple threads to greatly improve running time if the ``rayon`` feature flag is on.
-All prebuilt binaries except WASM have this flag on. As a result, and also because of other platform restrictions,
-algorithms on WASM in general run much slower than on other platforms.
+Currently all prebuilt binaries except WASM are compiled with this flag on.
 
 .. module:: Algo
     :noindex:

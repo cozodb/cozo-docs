@@ -49,7 +49,7 @@ This application is through atoms for inline rules, and input relations for fixe
 Next, some of the links are labelled *stratifying*:
 
 * when an inline rule applies another rule through negation,
-* when an inline rule applies another inline rule that contains aggregations,
+* when an inline rule applies another inline rule (not itself) that contains aggregations,
 * when an inline rule applies itself and it has non-semi-lattice,
 * when an inline rule applies another rule which is a fixed rule,
 * when a fixed rule has another rule as an input relation.

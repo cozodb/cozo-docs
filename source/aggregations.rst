@@ -7,7 +7,7 @@ Aggregations in Cozo can be thought of as a function that acts on a stream of va
 and produces a single value (the aggregate).
 
 There are two kinds of aggregations in Cozo, *ordinary aggregations* and *semi-lattice aggregations*.
-They are implemented differently in Cozo, with semi-lattice aggregations generally faster and more powerful
+They are implemented differently in Cozo, with semi-lattice aggregations more powerful
 (only the latter can be used recursively).
 
 The power of semi-lattice aggregations derive from the additional properties they satisfy: a `semilattice <https://en.wikipedia.org/wiki/Semilattice>`_:
@@ -113,21 +113,12 @@ Ordinary aggregations
     The argument should be a list of two elements and this aggregation returns the ``data`` of the maximum ``time``.
     This is very similar to ``min_cost``, the differences being that maximum instead of minimum is used,
     and non-numerical costs are allowed.
-    only ``data`` is returned, and the aggregation is deliberately not a semi-lattice aggregation. 
-    
-    .. NOTE::
-        This aggregation is intended to be used in timestamped audit trails.
-        As an example:: 
-
-            ?[id, latest_by(status_ts)] := *data[id, status, ts], status_ts = [status, ts]
-
-        returns the latest ``status`` for each ``id``. If you do this regularly, consider using the time travelling
-        facility.
+    Only ``data`` is returned. 
 
 .. function:: smallest_by([data, cost])
 
     The argument should be a list of two elements and this aggregation returns the ``data`` of the minimum ``cost``.
-    Non-numerical costs are allowed, unlike ``min_cost``. The value ``null`` for ``data`` are ignored when comparing.
+    Non-numerical costs are allowed, unlike ``min_cost``. The value ``null`` for ``cost`` are ignored when comparing.
 
 .. function:: choice_rand(var)
 
