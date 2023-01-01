@@ -217,14 +217,12 @@ Centrality measures
 
     Computes the `PageRank <https://en.wikipedia.org/wiki/PageRank>`_ from the given graph with the provided edges, optionally weighted.
 
-    This algorithm is implemented differently if the `rayon` is not enabled, in which case it runs much slower. This affects only the WASM platform.
-
     :param undirected: Whether the graph should be interpreted as undirected. Defaults to ``false``.
     :param theta: A number between 0 and 1 indicating how much weight in the PageRank matrix is due to the explicit edges. A number of 1 indicates no random restarts. Defaults to 0.8.
     :param epsilon: Minimum PageRank change in any node for an iteration to be considered an improvement. Defaults to 0.05.
     :param iterations: How many iterations to run. Fewer iterations are run if convergence is reached. Defaults to 20.
 
-    :return: Pairs containing the node label and its PageRank. For a graph with uniform edges, the PageRank of every node is 1. The `L2-norm <https://en.wikipedia.org/wiki/Norm_(mathematics)>`_ of the results is forced to be invariant, i.e. in the results those nodes with a PageRank greater than 1 is "more central" than the average node in a certain sense.
+    :return: Pairs containing the node label and its PageRank.
 
 .. function:: ClosenessCentrality(edges[from, to, weight?], undirected: false)
 
