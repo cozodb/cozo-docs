@@ -337,11 +337,8 @@ Memory usage?
 .. figure:: files/single_vertex_write_mem.svg
    :alt: Single vertex write mem
 
-Completely reasonable, I’d say. Even for large datasets, RocksDB keeps
+Completely reasonable, I’d say. Even for medium datasets, RocksDB keeps
 memory usage under 500MB.
-
-For writing to edges, we need to put the data into both the ``friends``
-relation and the reverse ``friends.rev`` relation:
 
 Point update
 ~~~~~~~~~~~~
@@ -519,8 +516,7 @@ Now let’s add a filter to the aggregation:
    ?[age, count(age)] := *user{age}, age ~ 0 >= 18
 
 This adds in a bit of processing time, but in terms of the order of
-magnitude the numbers are similar to before: |Aggregation filter
-latency|
+magnitude the numbers are similar to before: |Aggregation filter latency|
 
 The memory usage is almost identical:
 
@@ -579,11 +575,7 @@ Now for the full dataset (1.6M vertices, 32M edges):
    :alt: Pagerank medium latency
 
 About half a minute across all setups. I’d argue that this is as fast as
-*any* implementation could go. (, currently, we did not implement the
-Pagerank algorithm ourselves: instead, we used the excellent
-implementation of this crate. In the future we will continue to improve
-canned algorithms according to the metrics that we collected from our
-internal tests.) Memory usage:
+*any* implementation could go. Memory usage:
 
 .. figure:: files/pagerank_medium_mem.svg
    :alt: Pagerank medium mem
@@ -596,9 +588,7 @@ Conclusion
 We hope that you are convinced that Cozo is an extremely performant
 database that excels on minimal resources. As it can run (almost)
 everywhere, please try it for your use case, and send us feedback so
-that we can improve Cozo further! In a future blog, we will talk about
-some of the design decisions of Cozo, and the impact on performance and
-memory usage of these decisions.
+that we can improve Cozo further!
 
 .. |Friends 2 mem| image:: files/friends_2_mem.svg
 .. |Aggregation filter latency| image:: files/aggr_filter.svg
