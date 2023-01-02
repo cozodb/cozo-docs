@@ -6,7 +6,7 @@ and C, in addition to running standalone as a web server. Immediately
 after its release, many people asked about the feasibility of using Cozo
 embedded on mobile devices.
 
-There was one major obstacle to supporting mobile: Cozo 0.1 used RockDB
+There was one major obstacle to supporting mobile: Cozo 0.1 used RocksDB
 as the storage engine, and compiling RocksDB for mobile devices is not
 an easy task. We chose RocksDB because it could handle a huge amount of
 concurrency and is very fast, but the concurrency part may not be
@@ -55,7 +55,7 @@ They offer different trade-offs:
    distributed storage. We included it so that people may decide for
    themselves if it offers value for them. By the way, 100x slower *than
    the other storage options* may not be slow compared to the average
-   graph databases in the market – see the next section.
+   graph databases in the market.
 
 As a result of the storage engine refactoring, Cozo now runs on a much
 wider range of platforms, including iOS, Android, and web browsers (with

@@ -82,8 +82,7 @@ primary key and three non-keys representing the vertices, the relation
 edges, and the relation ``friends.rev`` acts as an index for the edges
 in the reverse direction (in Cozo, everything is very explicit).
 
-We will be comparing Cozo running with three different storage engines
-as introduced in the first section:
+We will be comparing Cozo running with three different storage engines:
 
 -  In-memory engine
 -  SQLite engine
@@ -149,7 +148,7 @@ Server   RocksDB 19.261249
 Server   SQLite  432.705856
 ======== ======= ====================
 
-And for the large dataset:
+And for the medium dataset:
 
 ======== ======= ====================
 Platform Backend Time taken (seconds)
@@ -179,8 +178,6 @@ must appear in two relations:
 .. figure:: files/batch_import_rps.svg
    :alt: Batch import
 
-   Batch import
-
 Here RocksDB performs well, especially for scaling: the decrease in raw
 rows per second due to larger datasets is very small. And it is always
 within a factor of three for the mem backend which does not persist data
@@ -199,8 +196,6 @@ show the peak memory usage as reported by the system:
 .. figure:: files/batch_import_mem.svg
    :alt: Batch import mem
 
-   Batch import mem
-
 The benchmark infrastructure takes about 50MB of memory even if it does
 nothing. So the SQLite backend always uses a negligible amount of extra
 memory. RocksDB on the other hand will use memory to speed things up. As
@@ -211,8 +206,6 @@ The data for the mem backend is shown below separately:
 
 .. figure:: files/batch_import_mem_mem.svg
    :alt: Batch import mem for mem
-
-   Batch import mem for mem
 
 This measures the size of the whole dataset as the mem backend can only
 store data in memory. As we can see Apple’s OS somehow uses memory more
@@ -231,8 +224,6 @@ is the backup?
 .. figure:: files/backup_rps.svg
    :alt: Backup
 
-   Backup
-
 On a Mac Mini, this is around one million raw rows per second for all
 backends, which should be fast enough for most purposes. On the Linux
 server, the bad quality of the SSD shows, but it is still quite fast. By
@@ -247,8 +238,6 @@ Memory usage:
 .. figure:: files/backup_mem.svg
    :alt: Backup memory
 
-   Backup memory
-
 Not much surprise here. As we said before around 50MB is used by the
 benchmark infrastructure, so take that into account.
 
@@ -260,8 +249,6 @@ How fast is restoring from a backup?
 .. figure:: files/restore_rps.svg
    :alt: Restore
 
-   Restore
-
 This is the only benchmark where RocksDB performs the worst, with 400K
 raw rows per second. Restoring into the SQLite backend is fast, but in
 fact, you can be faster still: just copy the backup file over (or use it
@@ -271,8 +258,6 @@ Memory usage:
 
 .. figure:: files/restore_mem.svg
    :alt: Restore memory
-
-   Restore memory
 
 No surprise.
 
@@ -299,8 +284,6 @@ The performance metric we are interested in is the queries per second
 .. figure:: files/single_vertex_read_qps.svg
    :alt: Single vertex read QPS
 
-   Single vertex read QPS
-
 The effect of data size on such queries is small, and in general, adding
 more cores helps almost *linearly*, though in the case of Mac Mini, only
 the performance cores help, the efficient cores are pretty useless and
@@ -312,8 +295,6 @@ For memory usage:
 
 .. figure:: files/single_vertex_read_mem.svg
    :alt: Single vertex read mem
-
-   Single vertex read mem
 
 RocksDB only starts using memory with the medium dataset. In all other
 cases, memory usage is minimal.
@@ -334,8 +315,6 @@ lock, so they are effectively still single-threaded:
 .. figure:: files/single_vertex_write_qps.svg
    :alt: Single vertex write QPS
 
-   Single vertex write QPS
-
 RocksDB shines here as you can expect more than about 100K QPS for both
 setups. Using more than the number of performance cores on the Mac Mini
 decreases performance quite a bit, so avoid that if you can. But you
@@ -343,8 +322,6 @@ can’t see the SQLite bars, can you? Let’s use logarithmic scale instead:
 
 .. figure:: files/single_vertex_write_qps_zoom.svg
    :alt: Single vertex write QPS zoom
-
-   Single vertex write QPS zoom
 
 Whereas RocksDB easily manages more than 100K QPS, SQLite struggles to
 reach even 100 QPS on the server with the slow SSD. That is more than
@@ -359,8 +336,6 @@ Memory usage?
 
 .. figure:: files/single_vertex_write_mem.svg
    :alt: Single vertex write mem
-
-   Single vertex write mem
 
 Completely reasonable, I’d say. Even for large datasets, RocksDB keeps
 memory usage under 500MB.
@@ -383,16 +358,12 @@ The performance:
 .. figure:: files/single_vertex_update_qps.svg
    :alt: Single vertex update QPS
 
-   Single vertex update QPS
-
 It is slower than point writes, but within a factor of two. You can
 still easily manage more than 50K QPS for RocksDB. Memory usage is
 almost the same as the point write case:
 
 .. figure:: files/single_vertex_update_mem.svg
    :alt: Single vertex update mem
-
-   Single vertex update mem
 
 Mixed queries?
 ~~~~~~~~~~~~~~
@@ -443,8 +414,6 @@ On average, this will return hundreds of rows.
 .. figure:: files/friends_2.svg
    :alt: Friends 2 latency
 
-   Friends 2 latency
-
 We see that the RocksDB backend performs very well, and if the storage
 is fast enough, it is even faster than the mem backend. The SQLite
 backend also performs quite well competitively. Having more threads
@@ -472,8 +441,6 @@ follows:
 .. figure:: files/friends_3.svg
    :alt: Friends 3 latency
 
-   Friends 3 latency
-
 The trend is similar to the 2 hops case, except that the latency is
 about twenty times as long, roughly proportional to the number of
 returned rows.
@@ -482,8 +449,6 @@ For memory usage:
 
 .. figure:: files/friends_3_mem.svg
    :alt: Friends 3 mem
-
-   Friends 3 mem
 
 Because the database must keep the *return set* in memory, in all cases
 the memory usage increases. But it still manages with under 1GB of
@@ -505,8 +470,6 @@ whole dataset (more than 600K rows) if you start with someone popular!
 .. figure:: files/friends_4.svg
    :alt: Friends 4 latency
 
-   Friends 4 latency
-
 I’d say that for return sets this big, the average latency of a few
 seconds (or even less than a second) is excellent.
 
@@ -514,8 +477,6 @@ Peak memory usage just reflects the size of the returned sets:
 
 .. figure:: files/friends_4_mem.svg
    :alt: Friends 4 mem
-
-   Friends 4 mem
 
 We won’t go beyond four hops but will note instead that if you go up to
 six hops, by the “six degrees of separation”, you will return the
@@ -542,8 +503,6 @@ age group:
 .. figure:: files/aggr_grp.svg
    :alt: Aggregation group latency
 
-   Aggregation group latency
-
 This tests the single-core CPU performance and disk read performance.
 Around 1 second (within a factor of two) to scan the whole table in all
 cases.
@@ -552,8 +511,6 @@ The memory usage is minimal as the return set is small:
 
 .. figure:: files/aggr_grp_mem.svg
    :alt: Aggregation group mem
-
-   Aggregation group mem
 
 Now let’s add a filter to the aggregation:
 
@@ -569,8 +526,6 @@ The memory usage is almost identical:
 
 .. figure:: files/aggr_filter_mem.svg
    :alt: Aggregation filter mem
-
-   Aggregation filter mem
 
 The results are similar if we compute several aggregations in tandem:
 
@@ -598,14 +553,10 @@ the tiny dataset (10K vertices, 122K edges):
 .. figure:: files/pagerank_tiny.svg
    :alt: Pagerank tiny latency
 
-   Pagerank tiny latency
-
 Completes in the blink of an eye. Memory usage:
 
 .. figure:: files/pagerank_tiny_mem.svg
    :alt: Pagerank tiny mem
-
-   Pagerank tiny mem
 
 Not much, since the dataset is truly tiny.
 
@@ -614,14 +565,10 @@ Now for the small dataset (100K vertices, 1.7M edges):
 .. figure:: files/pagerank_small.svg
    :alt: Pagerank small latency
 
-   Pagerank small latency
-
 About one second within a factor of two. Memory usage:
 
 .. figure:: files/pagerank_small_mem.svg
    :alt: Pagerank small mem
-
-   Pagerank small mem
 
 This is the amount of memory used to store the graph in the main memory,
 which is less than the size of the total graph on disk.
@@ -630,8 +577,6 @@ Now for the full dataset (1.6M vertices, 32M edges):
 
 .. figure:: files/pagerank_medium.svg
    :alt: Pagerank medium latency
-
-   Pagerank medium latency
 
 About half a minute across all setups. I’d argue that this is as fast as
 *any* implementation could go. (, currently, we did not implement the
@@ -642,8 +587,6 @@ internal tests.) Memory usage:
 
 .. figure:: files/pagerank_medium_mem.svg
    :alt: Pagerank medium mem
-
-   Pagerank medium mem
 
 1GB memory for such a workload is more than reasonable.
 
