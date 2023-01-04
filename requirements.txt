@@ -2,3 +2,4 @@ furo
 nbsphinx
 myst-parser
 sphinx-toolbox
+sphinx-copybutton

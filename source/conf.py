@@ -19,6 +19,7 @@ extensions = [
     'myst_parser',
     'sphinx_toolbox.sidebar_links',
     'sphinx_toolbox.github',
+    'sphinx_copybutton'
 ]
 
 github_username = 'cozodb'
