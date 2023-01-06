@@ -58,6 +58,8 @@ These two queries yield identical values. But on real networks, where loops abou
 the second way of writing executes exponentially faster than the first.
 Why? Because of set semantics in relations, the second way of writing deduplicates at every turn,
 whereas the first way of writing builds up all paths to the final layer of friends.
+In fact, even if there are no duplicates, the second version may still be faster, because in Cozo
+rules run in parallel whenever allowed by semantics and available resources.
 
 The moral of the story is, always prefer to break your query into smaller rules.
 It usually reads better, and unlike in some other databases, 
