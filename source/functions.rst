@@ -27,7 +27,6 @@ For the last three, ``or`` binds more tightly from ``and``, which in turn binds 
 
 These are constructs that return expressions:
 
-* ``try(a, b, ...)`` evaluates each argument in turn, stops at the first expression that does not throw and return its value.
 * ``if(a, b, c)`` evaluates ``a``, and if the result is ``true``, evaluate ``b`` and returns its value, otherwise evaluate ``c`` and returns its value.
   ``a`` must evaluate to a boolean.
 * ``if(a, b)`` same as ``if(a, b, null)``
@@ -66,8 +65,8 @@ These operators have precedence as follows
 * ``^``
 * ``*``, ``/``
 * ``+``, ``-``, ``++``
-* ``==``, ``!=``
 * ``%``
+* ``==``, ``!=``
 * ``>=``, ``<=``, ``>``, ``<``
 * ``&&``
 * ``||``
