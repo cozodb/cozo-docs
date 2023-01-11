@@ -175,6 +175,80 @@ At the end of the transaction, changes are only committed if there are no confli
 and no errors are raised.
 If any mutation activate triggers, those triggers execute in the same transaction.
 
+There is actually a mini-language hidden behind query chains. What you have seen above consists of a number of simple
+*query expressions*, each expression is a complete query enclosed in braces, 
+and the return value is the value of the last expression. There are other constructs as well:
+
+* ``%if <cond> %then ... (%else ...) %end`` for conditional execution. 
+  There is also a negated form beginning with ``%if_not``. The ``<cond>`` part is either a query expression or
+  an ephemeral relation. Either way, the condition ends up being a relation, and a relation is considered truthy
+  if the last field of its first row is truthy as determined by the ``to_bool`` function,
+  and is considered falsy if the relation contains no rows, or the last field of its first row is falsy 
+  as determined by the ``to_bool`` function.
+
+* ``%loop ... %end`` for looping, you can use ``%break`` and ``%continue`` inside the loop. 
+  You can prefix the loop with ``%mark <marker>``, and use ``%break <marker>`` or ``%continue marker`` 
+  to jump sereral levels.
+
+* ``%return <query expression or ephemeral relation, or empty>`` for early termination.
+
+* ``%debug <ephemeral relation>`` for printing ephemeral relations to standard output.
+
+* ``%ignore_error <query expression>`` executes the query expresison, but eats any error raised and continue.
+
+* ``%swap <ephemeral relation> <another ephemeral relation>`` swaps two ephemeral relations.
+
+What is the *ephemeral relation* mentioned above? This is a relation that can only be seen within the transaction
+and which is gone when the transaction ends (hence it is useless in singleton queries). 
+It is created and used in the same way as stored relations,
+but with names starting with the underscore ``_``. You can think of them as variables in the chain query mini-language.
+
+Let's see several examples::
+
+    {:create _test {a}}
+
+    %loop
+        %if { len[count(x)] := *_test[x]; ?[x] := len[z], x = z >= 10 }
+            %then %return _test
+        %end
+        { ?[a] := a = rand_uuid_v1(); :put _test {a} }
+    %end
+
+The return relation of this query consists of ten random rows. Note that in this example,
+you *must not* use a constant rule when generating the random value: 
+the body of a constant rule is evaluated to a constant only *once*, which will make the query loop forever.
+
+Another one::
+
+    {?[a] <- [[1], [2], [3]]; :replace _test {a}}
+
+    %loop
+        { ?[a] := *_test[a]; :limit 1; :rm _test {a} }
+        %debug _test
+
+        %if_not _test
+        %then %break
+        %end
+    %end
+
+    %return _test
+
+The return relation of this query is empty (very contrived way of removing elements).
+
+Finally::
+
+    {?[a] <- [[1], [2], [3]]; :replace _test {a}}
+    {?[a] <- []; :replace _test2 {a}}
+    %swap _test _test2
+    %return _test
+
+The return relation of this query is empty as well, since the two ephemeral relations have been swapped.
+
+We use this functionality to run ad-hoc iterative queries. As the basic query language is already Turing complete,
+you can actually write any algorithm without this mini-language, but the way of writing may be very contrived.
+Try implementing PageRank with basic query. You will end up with many recursive aggregations.
+Next try with chained queries. A breeze.
+
 ------------------------------------------------------
 Triggers and indices
 ------------------------------------------------------
