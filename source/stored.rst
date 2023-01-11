@@ -254,6 +254,6 @@ Triggers can be creatively used for other purposes as well.
 
 .. WARNING::
 
-    Loops in your triggers can cause non-termination.
-    A loop occurs when a relation has triggers which affect other relations,
-    which in turn have other triggers that ultimately affect the starting relation.
+    Triggers do not propagate. That is, if a trigger modifies a relation that has triggers associated, 
+    those latter triggers will not run. This is different from the behaviour in earlier versions.
+    We changed it since trigger propagation creates more problems than it solves.
