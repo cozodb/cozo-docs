@@ -249,6 +249,16 @@ you can actually write any algorithm without this mini-language, but the way of 
 Try implementing PageRank with basic query. You will end up with many recursive aggregations.
 Next try with chained queries. A breeze.
 
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Multi-statement transaction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Cozo also supports multi-statement in the hosting language for selected libraries (currently Rust, Python, NodeJS)
+and the standalone executable. The way to use it is to request a transaction first,
+do your queries and mutations against the transaction, and finally commit or abort the transaction.
+This is more flexible than using the chaining query mini-language, but is specific to each hosting environment.
+Please refer to the respective documentations of the environments.
+
 -------------------------------------------------
 Indices
 -------------------------------------------------
