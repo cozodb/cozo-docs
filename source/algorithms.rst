@@ -7,6 +7,10 @@ Fixed rules in CozoScript apply utilities or algorithms.
 The algorithms described here are only available if your distribution of Cozo is compiled with the ``graph-algo`` feature flag.
 Currently all prebuilt binaries except WASM are compiled with this flag on.
 
+If you are using the Cozo libraries in Rust, Python or NodeJS, or if you are using the standalone executable,
+you can also easily define custom fixed rules in the hosting environment: see the respective documentations
+for how to do it.
+
 .. module:: Algo
     :noindex:
 
