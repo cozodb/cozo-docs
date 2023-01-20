@@ -249,20 +249,64 @@ you can actually write any algorithm without this mini-language, but the way of 
 Try implementing PageRank with basic query. You will end up with many recursive aggregations.
 Next try with chained queries. A breeze.
 
+-------------------------------------------------
+Indices
+-------------------------------------------------
+
+Since version 0.5, it is possible to create indices on stored relations. 
+In Cozo, indices are simply reordering of columns of the original stored relation.
+As an example, let's say we have a relation 
+::
+
+    :create r {a => b}
+
+but we often want to run queries like ``?[a] := *r{a, b: $value}``. Without indiecs, 
+this will result in a full-scan. In this case we can do::
+
+    ::index create r:idx {b, a}
+
+You do *not* specify functional dependencies when creating indices (and in this case there are none anyway).
+
+In Cozo, indices are read-only stored relations that you can query directly::
+
+    ?[a] := *r:idx {a, b: $value}
+
+In this case, running the original query will also use the index, 
+and hence is equivalent to the explicit form (which you can confirm with ``::explain``).
+However, Cozo is very conservative in using indices in that if there is any chance that the use of an index might
+decrease performance, then Cozo will not use an index. Currently, this means that only in situations when 
+using an index can avoid a full-scan will the index be used. 
+This behaviour ensures that you will not need to fight against suboptimal use of indices with difficult tricks:
+just be explicit.
+
+To drop an index::
+
+    ::index drop r:idx
+
+In Cozo, you do not need to specify all columns when creating an index, 
+and the database will complete the specified columns to a key. This means that if your stored relation is
+::
+
+    :create r {a, b => c, d, e}
+
+and you created an index as::
+
+    ::index create r:i {d, b}
+
+the database will automatically run the following index creation instead::
+
+    ::index create r:i {d, b, a}
+
+You can see what columns are actually created by running ``::columns r:i``.
+
+Indices can be used as inputs to fixed rules. They may also be eligible in time-travel queries, as long as
+their last key column is of type ``Validity``.
+
 ------------------------------------------------------
-Triggers and indices
+Triggers
 ------------------------------------------------------
 
-Cozo does not have traditional indices on stored relations.
-Instead, you define regular stored relations that are used as indices.
-At query time, you explicitly query the index instead of the original stored relation.
-
-You synchronize your indices and the original by ensuring that any mutations you do on the database
-write the correct data to the "canonical" relation and its indices in the same transaction.
-As doing this by hand for every mutation leads to lots of repetitions
-and is error-prone,
-Cozo supports *triggers* to do it automatically for you.
-
+Cozo supports triggers attached to stored relations. 
 You attach triggers to a stored relation by running the system op ``::set_triggers``::
 
     ::set_triggers <REL_NAME>
@@ -291,18 +335,15 @@ All triggers for a relation must be specified together, in the same ``::set_trig
 If used again, all the triggers associated with the stored relation are replaced.
 To remove all triggers from a stored relation, use ``::set_triggers <REL_NAME>`` followed by nothing.
 
-As an example of using triggers to maintain an index, suppose we have the following relation::
+As an example of using triggers to maintain an index manually, suppose we have the following relation::
 
     :create rel {a => b}
 
-We often want to query ``*rel[a, b]`` with ``b`` bound but ``a`` unbound. This will cause a full scan,
-which can be expensive. So we need an index::
+and the manual index is::
 
     :create rel.rev {b, a}
 
-In the general case, we cannot assume a functional dependency ``b => a``, so in the index both fields appear as keys.
-
-To manage the index automatically::
+To manage the manual index automatically::
 
     ::set_triggers rel
 
@@ -319,12 +360,9 @@ To manage the index automatically::
 
 With the index set up, you can use ``*rel.rev{..}`` in place of ``*rel{..}`` in your queries.
 
-Indices in Cozo are manual, but extremely flexible, since you need not conform to any predetermined patterns
-in your use of ``_old[]`` and ``_new[]``.
-For simple queries, the need to explicitly elect to use an index can seem cumbersome,
-but for complex ones, the deterministic evaluation entailed can be a huge blessing.
-
-Triggers can be creatively used for other purposes as well.
+Note that unlike indices, there are ingestion APIs for which triggers are explicitly *not* run. 
+Also, if you want to manually manage indices with triggers, you have to populate the existing values
+manually as well.
 
 .. WARNING::
 

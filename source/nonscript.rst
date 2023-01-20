@@ -79,3 +79,10 @@ to describe what they do.
     :param path: path to the backup file. For remote databases, this is a path on the remote machine.
     :param relations: a list containing the names of the relations to import. The relations must exist
                         in the database.
+
+---------------------------
+Callbacks
+---------------------------
+
+It is possible to register callbacks so that you get notified when requested stored relations change. 
+Currently, this functionality is available for Rust, Python and NodeJS libraries and the standalone executable only. Refer to the respective documentation for how to use it.

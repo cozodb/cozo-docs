@@ -39,6 +39,10 @@ Ops for stored relations
 
     Rename stored relation ``<OLD_NAME>`` into ``<NEW_NAME>``. Several may be specified, joined by commas.
 
+.. function:: ::index ...
+
+    Manage indices. See :doc:`stored` for more details.
+
 .. function:: ::show_triggers <REL_NAME>
 
     Display triggers associated with the stored relation ``<REL_NAME>``.
