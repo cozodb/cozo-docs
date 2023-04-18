@@ -15,11 +15,14 @@ Values in Cozo have the following *runtime types*:
 * ``Bytes``
 * ``Uuid``
 * ``List``
+* ``Vector``
 * ``Validity``
 
 ``Number`` can be ``Float`` (double precision) or ``Int`` (signed, 64 bits). Cozo will auto-promote ``Int`` to ``Float`` when necessary.
 
 ``List`` can contain any number of mixed-type values, including other lists.
+
+``Vector`` have fixed length and contain floats. There are two versions: F32 vectors and F64 vectors.
 
 Cozo sorts values according to the above order, e.g. ``null`` is smaller than ``true``, which is in turn smaller than the list ``[]``.
 
@@ -79,6 +82,8 @@ auto-coercion will kick in and use ``decode_base64`` and ``to_uuid`` for convers
 Lists are items enclosed between square brackets ``[]``, separated by commas.
 A trailing comma is allowed after the last item.
 
+There are no literal representations for ``Vector`` or ``Validity``. Use the function ``vec`` to convert a list to a vector.
+
 ------------------------------------------------
 Column types
 ------------------------------------------------
@@ -101,6 +106,8 @@ with the inner type in between, like this: ``[Int]``.
 You may optionally specify how many elements are expected, like this: ``[Int; 10]``.
 A *heterogeneous list*, or a *tuple*, is specified by round brackets, with the element types listed by position,
 like this: ``(Int, Float, String)``. Tuples always have fixed lengths.
+
+Vectors are also valid as component types and is written in the syntax ``<F32; 1024>`` for a 1024-element F32 vector. The type can also be F64.
 
 A special type ``Any`` can be specified, allowing all values except null.
 If you want to allow null as well, use ``Any?``.

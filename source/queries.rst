@@ -282,6 +282,7 @@ The rest of the query options are explained in the following.
 
     Abort if the query does not complete within ``<N>`` seconds.
     Seconds may be specified as an expression so that random timeouts are possible.
+    Defaults to 300 seconds. If you want to disable the timeout, set it to 0.
 
 .. function:: :sleep <N>
 

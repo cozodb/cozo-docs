@@ -43,6 +43,10 @@ Ops for stored relations
 
     Manage indices. See :doc:`stored` for more details.
 
+.. function:: ::hnsw ...
+
+    Manage HNSW indices. See :doc:`vector` for more details.
+
 .. function:: ::show_triggers <REL_NAME>
 
     Display triggers associated with the stored relation ``<REL_NAME>``.

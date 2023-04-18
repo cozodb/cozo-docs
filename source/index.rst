@@ -23,6 +23,7 @@ please refer to the `GitHub page <https://github.com/cozodb/cozo>`_.
    tutorial.ipynb
    queries
    stored
+   vector
    timetravel
    sysops
    datatypes

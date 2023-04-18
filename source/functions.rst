@@ -178,6 +178,10 @@ Mathematics
 
     Raises ``x`` to the power of ``y``. Equivalent to ``x ^ y``. Always returns floating number.
 
+.. function:: sqrt(x)
+
+    Returns the square root of ``x``.
+
 .. function:: mod(x, y)
 
     Returns the remainder when ``x`` is divided by ``y``. Arguments can be floats. The returned value has the same sign as ``x``.  Equivalent to ``x % y``.
@@ -302,6 +306,43 @@ Mathematics
     .. NOTE::
 
         The haversine formula, when applied to the surface of the earth, which is not a perfect sphere, can result in an error of less than one percent.
+
+------------------------
+Vector functions
+------------------------
+
+Now that mathematical functions that operate on floats can also take vectors as arguments, and apply the operation element-wise.
+
+.. module:: Func.Vector
+    :noindex:
+
+.. function:: vec(l, type?)
+
+    Takes a list of numbers and returns a vector.
+
+    Defaults to 32-bit float vectors. If you want to use 64-bit float vectors, pass ``'F64'`` as the second argument.
+
+.. function:: rand_vec(n, type?)
+
+    Returns a vector of ``n`` random numbers between ``0`` and ``1``.
+
+    Defaults to 32-bit float vectors. If you want to use 64-bit float vectors, pass ``'F64'`` as the second argument.
+
+.. function:: l2_normalize(v)
+
+    Takes a vector and returns a vector with the same direction but length ``1``, normalized using L2 norm.
+
+.. function:: l2_dist(u, v)
+
+    Takes two vectors and returns the distance between them, using squared L2 norm: d = sum((ui-vi)^2).
+
+.. function:: ip_dist(u, v)
+
+    Takes two vectors and returns the distance between them, using inner product: d = 1 - sum(ui*vi).
+
+.. function:: cos_dist(u, v)
+
+    Takes two vectors and returns the distance between them, using cosine distance: d = 1 - sum(ui*vi) / (sqrt(sum(ui^2)) * sqrt(sum(vi^2))).
 
 ------------------------
 String functions
@@ -657,6 +698,10 @@ Random functions
 .. function:: rand_uuid_v4()
 
     Generate a random UUID, version 4 (completely random bits).
+
+.. function:: rand_vec(n, type?)
+
+    Generates a vector of ``n`` random elements. If ``type`` is not given, it defaults to ``F32``.
 
 ------------------
 Regex functions
