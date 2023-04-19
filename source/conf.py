@@ -9,7 +9,7 @@
 release = '0.6'
 project = 'The Cozo Database Manual ' + release
 author = 'Ziyang Hu'
-copyright = '2022, ' + author
+copyright = '2023, ' + author
 
 # -- General configuration ---------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#general-configuration

@@ -53,9 +53,11 @@ The vector search can be used in any place where a stored relation may be used, 
 
 As with normal indices, you can use the index relation as a read-only but otherwise normal relation in your query. You query the index directly by::
 
-    ?[fr_k, to_k, dist] := *table:index_name {fr_k, to_k, dist}
+    ?[fr_k, to_k, dist] := *table:index_name {layer: 0, fr_k, to_k, dist}
 
- The schema for the above index is the following::
+It is recommended to always specify ``layer``, otherwise a full scan is required.
+
+The schema for the above index is the following::
 
     {
         layer: Int,

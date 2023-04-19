@@ -7,9 +7,8 @@ Cozo database documentation
 =====================================
 
 Welcome to the documentation for CozoDB,
-a feature-rich, transactional, relational database that uses Datalog for queries,
-focuses on graph data and algorithms, is capable of time travel, 
-and makes no performance compromises.
+a feature-rich, transactional, time-travel-enabled, relational-graph-vector database that uses Datalog for queries,
+while making no performance compromises.
 
 You can start immediately with the :doc:`tutorial`, which you can follow without installing anything.
 
