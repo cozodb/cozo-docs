@@ -27,7 +27,9 @@ The dimension ``dim`` and the data type ``dtype`` (defaults to F32) has to match
 
 The ``distance`` parameter is the distance metric to use: the options are ``L2`` (default), ``Cosine`` and ``IP``. The ``m`` controls the maximal number of outgoing connections from each node in the graph, and the ``ef_construction`` parameter is the number of nearest neighbors to use when building the index: see the HNSW paper for details. The ``filter`` parameter, when given, are bound to the fields of the original relation and only those rows for which the expression evaluates to ``true`` are indexed. The ``extend_candidates`` parameter is a boolean (default false) that controls whether the index should extend the candidate list with the nearest neighbors of the nearest neighbors. The ``keep_pruned_connections`` parameter is a boolean (default false) that controls whether the index should keep pruned connections.
 
-After the index is built, you can use vector search inside normal queries in a similar manner to stored relations. For example::
+You can insert data as normally done into ``table``. For vectors, use a list of numbers and it will be verified to have the correct dimension and converted. If you want to be more explicit, you can use the ``vec`` function.
+
+After the index is created, you can use vector search inside normal queries in a similar manner to stored relations. For example::
 
     ?[dist, k, v] := ~a:vec{ k, v | 
             query: q, 
