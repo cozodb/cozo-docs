@@ -379,3 +379,11 @@ manually as well.
     Triggers do not propagate. That is, if a trigger modifies a relation that has triggers associated, 
     those latter triggers will not run. This is different from the behaviour in earlier versions.
     We changed it since trigger propagation creates more problems than it solves.
+
+---------------------
+Storing large values
+---------------------
+
+There a limit to the amount of data you can store in a single value or single row. The precise limit depends on the storage engine. For the in-memory engine it is obviously RAM-bound. For the SQLite engine the keys as as whole and the values as a whole are each stored as a single BLOB field in SQLite, and are subject to `their limit <https://www.sqlite.org/limits.html>`_. For RocksDB engine, which is the recommended setup if you are thinking of storing large values, the keys as a whole is stored as a RocksDB key, which has a limit of 8MB, and keys should be kept small for performance. For values, CozoDB utilizes the `BlobDB <https://github.com/facebook/rocksdb/wiki/BlobDB>`_ functionality of RocksDB, and you are only limited by RAM and disk sizes.
+
+Performance-wise, if large values are present, currently these values will be read into memory if the row is touched in the query. So it is recommended to store large values in a dedicated key-value relation in the database, with all the metadata stored in a separate relation. At query time, you should search/filter/join the metadata relation to find the rows you want, and then join them with the dedicated large value relation at the last stage.
