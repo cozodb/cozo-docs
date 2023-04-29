@@ -31,7 +31,7 @@ You can insert data as normally done into ``table``. For vectors, use a list of 
 
 After the index is created, you can use vector search inside normal queries in a similar manner to stored relations. For example::
 
-    ?[dist, k, v] := ~a:vec{ k, v | 
+    ?[dist, k, v] := ~table:index_name{ k, v | 
             query: q, 
             k: 2, 
             ef: 20, 
