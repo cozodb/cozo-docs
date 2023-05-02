@@ -181,10 +181,8 @@ and the return value is the value of the last expression. There are other constr
 
 * ``%if <cond> %then ... (%else ...) %end`` for conditional execution. 
   There is also a negated form beginning with ``%if_not``. The ``<cond>`` part is either a query expression or
-  an ephemeral relation. Either way, the condition ends up being a relation, and a relation is considered truthy
-  if the last field of its first row is truthy as determined by the ``to_bool`` function,
-  and is considered falsy if the relation contains no rows, or the last field of its first row is falsy 
-  as determined by the ``to_bool`` function.
+  an ephemeral relation. Either way, the condition ends up being a relation, and a relation is considered falsy
+  if the relation contains no rows and truthy otherwise.
 
 * ``%loop ... %end`` for looping, you can use ``%break`` and ``%continue`` inside the loop. 
   You can prefix the loop with ``%mark <marker>``, and use ``%break <marker>`` or ``%continue marker`` 
