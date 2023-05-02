@@ -2,16 +2,16 @@
 Vector search
 ==============================
 
-Cozo supports vector proximity search using the HSNW (Hierarchical Navigable Small World) algorithm. 
+Cozo supports vector proximity search using the HNSW (Hierarchical Navigable Small World) algorithm. 
 
 To use vector search, you first need to have a stored relation with vectors inside, for example::
 
     :create table {k: String => v: <F32; 128>}
 
 
-Next you create a HSNW index on a table containing vectors. You use the following system operator to create the index::
+Next you create a HNSW index on a table containing vectors. You use the following system operator to create the index::
 
-    ::hsnw create table:index_name {
+    ::hnsw create table:index_name {
         dim: 128,
         m: 50,
         dtype: F32,
@@ -31,7 +31,7 @@ You can insert data as normally done into ``table``. For vectors, use a list of 
 
 After the index is created, you can use vector search inside normal queries in a similar manner to stored relations. For example::
 
-    ?[dist, k, v] := ~a:vec{ k, v | 
+    ?[dist, k, v] := ~table:index_name{ k, v | 
             query: q, 
             k: 2, 
             ef: 20, 
@@ -75,7 +75,7 @@ The schema for the above index is the following::
         ignore_link: Bool,
     }
 
-Layer is the layer in the HSNW hierarchy of graphs, with ``0`` the most detailed layer, ``-1`` the layer more abstract than ``0``, ``-2`` the even more abstract layer, etc. There is also a special layer ``1`` containing at most one row with all other keys set to null.
+Layer is the layer in the HNSW hierarchy of graphs, with ``0`` the most detailed layer, ``-1`` the layer more abstract than ``0``, ``-2`` the even more abstract layer, etc. There is also a special layer ``1`` containing at most one row with all other keys set to null.
 
 The ``fr_*`` and ``to_*`` fields mirror the indices of the indexed relation, and the ``fr__*`` and ``to__*`` fields indicate which vectors inside the original rows this edge connects.
 
@@ -83,6 +83,6 @@ The ``fr_*`` and ``to_*`` fields mirror the indices of the indexed relation, and
 
 Walking the index graph at layer 0 amounts to probabilistically visiting "near" neigbours. More abstract layers are renormalized versions of the proximity graph and are harder to work with but are even more interesting theoretically.
 
-To drop an HSNW index::
+To drop an HNSW index::
 
-    ::hsnw drop table:index_name
+    ::hnsw drop table:index_name
