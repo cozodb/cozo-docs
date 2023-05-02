@@ -31,6 +31,16 @@ Ops for stored relations
 
     List all columns for the stored relation ``<REL_NAME>``.
 
+.. function:: ::indices <REL_NAME>
+
+    List all indices for the stored relation ``<REL_NAME>``.
+
+.. function:: ::describe <REL_NAME> <DESCRIPTION>?
+
+    Describe the stored relation ``<REL_NAME>`` and store it in the metadata. 
+    If ``<DESCRIPTION>`` is given, it is stored as the description, otherwise the existing description is removed.
+    The description can be shown with ``::relations``. It serves as the documentation and signpost for humans and AI.
+
 .. function:: ::remove <REL_NAME> (, <REL_NAME>)*
 
     Remove stored relations. Several can be specified, joined by commas.

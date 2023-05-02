@@ -16,6 +16,7 @@ Values in Cozo have the following *runtime types*:
 * ``Uuid``
 * ``List``
 * ``Vector``
+* ``Json``
 * ``Validity``
 
 ``Number`` can be ``Float`` (double precision) or ``Int`` (signed, 64 bits). Cozo will auto-promote ``Int`` to ``Float`` when necessary.
@@ -36,6 +37,7 @@ Within each type values are *compared* according to:
 * UUIDs are sorted in a way that UUIDv1 with similar timestamps are near each other.
   This is to improve data locality and should be considered an implementation detail.
   Depending on the order of UUID in your application is not recommended.
+* Json values are compared by their string representation, which is a bit arbitrary and you should not rely on the order.
 * Validity is introduced for the sole purpose of enabling :doc:`time travel <timetravel>` queries.
 
 .. WARNING::
@@ -84,6 +86,8 @@ A trailing comma is allowed after the last item.
 
 There are no literal representations for ``Vector`` or ``Validity``. Use the function ``vec`` to convert a list to a vector.
 
+Json objects are enclosed between curly brackets ``{}``, with key-value pairs separated by commas. For all other Json subtypes, use the function ``json`` to convert normal values to them.
+
 ------------------------------------------------
 Column types
 ------------------------------------------------
@@ -96,6 +100,7 @@ The following *atomic types* can be specified for columns in stored relations:
 * ``String``
 * ``Bytes``
 * ``Uuid``
+* ``Json``
 * ``Validity``
 
 There is no ``Null`` type. Instead, if you put a question mark after a type, it is treated as *nullable*,

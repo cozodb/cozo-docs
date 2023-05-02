@@ -36,6 +36,12 @@ To manipulate stored relations, use one of the following query options:
     Put rows from the resulting relation into the named stored relation.
     If keys from the data exist beforehand, the corresponding rows are replaced with new ones.
 
+.. function:: :update <NAME> <SPEC>
+
+    Update rows in the named stored relation.
+    Only keys and any non-keys that you want to update should be specified in ``<SPEC>``, the other non-keys will keep their old values.
+    Updating a non-existent key is an error.
+
 .. function:: :rm <NAME> <SPEC>
 
     Remove rows from the named stored relation. Only keys should be specified in ``<SPEC>``.
@@ -125,13 +131,15 @@ The expression is evaluated anew for each row, so if you specified a UUID-genera
 you will get a different UUID for each row.
 
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Put, remove, ensure and ensure-not
+Put, update, remove, ensure and ensure-not
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 For ``:put``, ``:remove``, ``:ensure`` and ``:ensure_not``,
 you do not need to specify all existing columns in the spec if the omitted columns have a default generator,
 or if the type of the column is nullable, in which case the value defaults to ``null``.
 For these operations, specifying default values does not have any effect and will not replace existing ones.
+
+For ``:update``, you must specify all keys and all columns that you want to update.
 
 For ``:put`` and ``:ensure``, the spec needs to contain enough bindings to generate all keys and values.
 For ``:rm`` and ``:ensure_not``, it only needs to generate all keys.
