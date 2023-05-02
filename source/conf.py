@@ -6,7 +6,7 @@
 # -- Project information -----------------------------------------------------
 # https://www.sphinx-doc.org/en/master/usage/configuration.html#project-information
 
-release = '0.6'
+release = '0.7'
 project = 'The Cozo Database Manual ' + release
 author = 'Ziyang Hu'
 copyright = '2023, ' + author

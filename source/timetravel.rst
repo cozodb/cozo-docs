@@ -23,9 +23,11 @@ the *history* for that key, interpreted in the following way:
 the fact represented by a row is *valid* if its flag is ``true``, and
 the range of its validity is from its timestamp (inclusive) up until 
 the timestamp of the next row under the same key (excluding the last validity part,
-and here time is interpreted to flow forward).
+and here time is interpreted to flow forward). For example, let's say we have the rows ``'a', [10, true] => 'x'``, ``'a', [20, true] => 'y'``, ``'a', [30, true] => 'z'``, then at timestamps 10, 11, ..., 19, ``'a'`` is asserted to be ``'x'``, and at timestamps 20, 21, ..., 29, ``'a'`` is asserted to be ``'y'``, and from timestamp 30 onwards, ``'a'`` is asserted to be ``'z'``. Before timestamp 10, ``'a'`` doesn't exist.
+
+
 A row with a ``false`` assertive flag does nothing other than 
-making the previous fact invalid. 
+making the previous fact invalid. For example, if we add to the above rows a row ``'a', [15, false] => null``, then ``'a'`` no longer exists at timestamps 15, 16, ..., 19, and at timestamp 20 onwards, ``'a'`` is asserted to be ``'y'``.
 
 When querying against such a stored relation, a validity specification can be attached,
 for example::
@@ -39,7 +41,11 @@ the query is against a snapshot of the relation containing only valid facts at t
 It is possible for two rows to have identical non-validity key parts and identical 
 timestamps, but differ in their assertive flags. In this case when queried against
 the exact timestamp, the row is valid, as if the row with the ``false`` flag
-does not exist. The use case for this behaviour is to assert a fact only until a future time
+does not exist. For example, if we add to the above rows a row ``'a', [30, false] => null``,
+since we already have a row ``'a', [30, true] => 'z'``, when queried against timestamp 30,
+``'a'`` is asserted to be ``'z'``. The effect of the retraction is invisible from any time-travel query.
+
+The use case for this behaviour is to assert a fact only until a future time
 when that fact is sure to remain valid. When that time comes, a new fact can be asserted,
 and if the old fact remains valid there is no need to ``:rm`` the previous retraction.
 
