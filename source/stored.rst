@@ -36,16 +36,28 @@ To manipulate stored relations, use one of the following query options:
     Put rows from the resulting relation into the named stored relation.
     If keys from the data exist beforehand, the corresponding rows are replaced with new ones.
 
+.. function:: :rm <NAME> <SPEC>
+
+    Remove rows from the named stored relation. Only keys should be specified in ``<SPEC>``.
+    Removing a non-existent key is not an error and does nothing.
+
+.. function:: :insert <NAME> <SPEC>
+
+    Insert rows from the resulting relation into the named stored relation.
+    If keys from the data exist beforehand, an error is raised.
+
 .. function:: :update <NAME> <SPEC>
 
     Update rows in the named stored relation.
     Only keys and any non-keys that you want to update should be specified in ``<SPEC>``, the other non-keys will keep their old values.
     Updating a non-existent key is an error.
 
-.. function:: :rm <NAME> <SPEC>
+.. function:: :delete <NAME> <SPEC>
 
-    Remove rows from the named stored relation. Only keys should be specified in ``<SPEC>``.
-    Removing a non-existent key is not an error and does nothing.
+    Delete rows from the named stored relation.
+    Only keys and any non-keys that you want to delete should be specified in ``<SPEC>``, the other non-keys will keep their old values.
+    Deleting a non-existent key raises an error.
+
 
 .. function:: :ensure <NAME> <SPEC>
 
