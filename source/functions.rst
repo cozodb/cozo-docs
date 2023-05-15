@@ -57,10 +57,12 @@ Some functions have equivalent operator forms, which are easier to type and perh
 * ``a == b`` is the same as ``eq(a, b)``
 * ``a != b`` is the same as ``neq(a, b)``
 * ``a ~ b`` is the same as ``coalesce(a, b)``
+* ``a -> b`` is the same as ``maybe_get(a, b)``
 
 These operators have precedence as follows 
 (the earlier rows binds more tightly, and within the same row operators have equal binding power):
 
+* ``->``
 * ``~``
 * ``^``
 * ``*``, ``/``
@@ -379,7 +381,7 @@ Json funcitons
 
 .. function:: maybe_get(json, idx)
 
-    Returns the element at index ``idx`` in the Json ``json``. Same as ``get(json, idx, null)``
+    Returns the element at index ``idx`` in the Json ``json``. Same as ``get(json, idx, null)``. The shorthand is ``json->idx``.
 
 
 .. function:: set_json_path(json, path, value)
@@ -511,7 +513,7 @@ List functions
 
 .. function:: maybe_get(l, n)
 
-    Returns the element at index ``n`` in the list ``l``. Same as ``get(l, n, null)``
+    Returns the element at index ``n`` in the list ``l``. Same as ``get(l, n, null)``. The shorthand is ``l->n``.
 
 .. function:: length(list)
 
@@ -864,3 +866,8 @@ Timestamp functions
 .. function:: parse_timestamp(str)
 
     Parse ``str`` into seconds since the epoch according to RFC3339.
+
+.. function:: validity(ts_micro, is_assert?)
+
+    Returns a validity object with the given timestamp in microseconds.
+    If ``is_assert`` is ``true``, the validity will be asserted, otherwise it will be assumed. Defaults to ``true``.

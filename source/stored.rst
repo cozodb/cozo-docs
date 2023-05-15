@@ -71,6 +71,14 @@ To manipulate stored relations, use one of the following query options:
     and that no other process has written to these rows when the enclosing transaction commits.
     Useful for ensuring read-write consistency.
 
+.. function:: :returning
+
+    When used in conjunction with the mutation ops ``:put``, ``:rm``, ``:insert``, ``:update`` and ``:delete``,
+    instead of returning a status code, the mutated rows are returned as a relation. The schema of the returned rows
+    follows the schema of the stored relation, with a special field ``_kind`` added to the front.
+    ``_kind`` can be ``"inserted"`` or ``"replaced"`` for ``:put``, ``:insert`` and ``:update``, and ``"requested"``
+    and ``"deleted"`` for ``:rm`` and ``:delete``. For deletion, the non-key fields for ``"requested"`` rows are filled with ``null``.
+
 You can rename and remove stored relations with the system ops ``::rename`` and ``::remove``,
 described in the system op chapter.
 
@@ -261,6 +269,10 @@ Finally::
     %return _test
 
 The return relation of this query is empty as well, since the two ephemeral relations have been swapped.
+
+For any query occrurring in script, you can postfix it with ``as <name>`` where name is an identifier starting with the underscore,
+and the result of the query will be stored in an ephemeral relation with the given name. The ephemeral relation is created as if
+there is an ``:replace`` directive.
 
 We use this functionality to run ad-hoc iterative queries. As the basic query language is already Turing complete,
 you can actually write any algorithm without this mini-language, but the way of writing may be very contrived.
