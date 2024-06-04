@@ -53,7 +53,7 @@ Some functions have equivalent operator forms, which are easier to type and perh
 * ``a >= b`` is the same as ``ge(a, b)``
 * ``a <= b`` is the same as ``le(a, b)``
 * ``a > b`` is the same as ``gt(a, b)``
-* ``a < b`` is the same as ``le(a, b)``
+* ``a < b`` is the same as ``lt(a, b)``
 * ``a == b`` is the same as ``eq(a, b)``
 * ``a != b`` is the same as ``neq(a, b)``
 * ``a ~ b`` is the same as ``coalesce(a, b)``
